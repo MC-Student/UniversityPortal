@@ -77,6 +77,7 @@
             this.login_button.TabIndex = 4;
             this.login_button.Text = "Log in";
             this.login_button.UseVisualStyleBackColor = true;
+            this.login_button.Click += new System.EventHandler(this.click_ok);
             // 
             // cancel_button
             // 
@@ -86,6 +87,7 @@
             this.cancel_button.TabIndex = 5;
             this.cancel_button.Text = "Cancel";
             this.cancel_button.UseVisualStyleBackColor = true;
+            this.cancel_button.Click += new System.EventHandler(this.click_cancel);
             // 
             // LoginPage
             // 

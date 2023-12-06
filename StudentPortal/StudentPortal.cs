@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 using Microsoft.VisualBasic.ApplicationServices;
+using System.Reflection.Emit;
 
 namespace StudentPortal
 {
@@ -50,16 +51,17 @@ namespace StudentPortal
 
         private void LogInButton_Click(object sender, EventArgs e)
         {
-            LoginPage lg = new LoginPage(ref user);
-//            lg.Name = "Student Log In";
-            lg.Show();
-            //DialogResult result = lg.ShowDialog();
-
-            /*if (result == DialogResult.OK)
-            { 
+            using (LoginPage child = new LoginPage())
+            {
+                // passing this in ShowDialog will set the .Owner 
+                // property of the child form
+                child.ShowDialog(this);
             }
-            else {lg.Close(); }*/
+        }
 
+        public void SetUser(string s)
+        {
+            user = s;
         }
     }
 }
