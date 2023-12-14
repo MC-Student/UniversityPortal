@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
+using System.Data.SqlTypes;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -9,16 +11,36 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
 
 namespace StudentPortal
 {
     public partial class LoginPage : Form
     {
+        private SqlConnection sqlCon;
         public LoginPage()
         {
             InitializeComponent();
         }
 
+        private Boolean CreateConnection()
+        {
+            try
+            {
+                string strServer = Environment.GetEnvironmentVariable("SQL_Server_Name", EnvironmentVariableTarget.User);
+                string strDatabase = Environment.GetEnvironmentVariable("University_DB_Name", EnvironmentVariableTarget.User);
+
+                string strConnect = $"Server={strServer};Database={strDatabase};Trusted_Connection=True;";
+                sqlCon = new SqlConnection(strConnect);
+                sqlCon.Open();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(" " + DateTime.Now.ToLongTimeString() + "  " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return false;
+        }
         private void click_cancel(object sender, EventArgs e)
         {
             StudentPortal parent = (StudentPortal)this.Owner;
@@ -32,8 +54,17 @@ namespace StudentPortal
             {
                 String text = un_input.Text;
                 StudentPortal parent = (StudentPortal)this.Owner;
-                parent.SetUser(text);
-                this.Close();
+                if (ValidatePassword(text))
+                {
+                    parent.SetUser(text);
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Incorrect username or password");
+                    un_input.Clear();
+                    pw_input.Clear();
+                }
             }
             else if (un_input.Text.Length < 3 && pw_input.Text.Length < 8) 
             {
@@ -47,6 +78,54 @@ namespace StudentPortal
             {
                 MessageBox.Show("Invalid password: must enter at least 8 characters");
             }
+        }
+
+        private Boolean ValidatePassword(String user)
+        {
+            String encryptedInput = encryptInputPassword(pw_input.Text);
+            String actualUserPassword = getStoredPassword(user);
+            if (actualUserPassword != null && encryptedInput != null)
+            {
+                if (actualUserPassword.Equals(encryptedInput))
+                {
+                    return true;
+                }
+            }
+            else if (encryptedInput == null) 
+            {
+                MessageBox.Show("Database connection failed");
+            }
+            else if (actualUserPassword == null)
+            {
+                MessageBox.Show("Username incorrect");
+            }
+            return false;
+        }
+
+        private String encryptInputPassword(String password) 
+        {
+            if (CreateConnection())
+            {
+                SqlCommand sqlCmd = new SqlCommand("SELECT dbo.encryptPw2(@Pw_chars)", sqlCon);
+                sqlCmd.CommandType = CommandType.Text;
+                sqlCmd.Parameters.Add("@Pw_chars", SqlDbType.VarChar).Value = password;
+                SqlParameter code1 = new SqlParameter("@code", SqlDbType.Int);
+                String encrypted = sqlCmd.ExecuteScalar() as string;
+                return encrypted;
+            }
+          
+            return null;
+        }
+        private String getStoredPassword(String user)
+        {
+            SqlCommand sqlCmd = new SqlCommand("sp_GetEncryptedUserPw", sqlCon);
+            sqlCmd.CommandType = CommandType.StoredProcedure;
+            sqlCmd.Parameters.Add("@username", SqlDbType.VarChar).Value = user;
+            sqlCmd.Parameters.Add("@password", SqlDbType.VarChar, int.MaxValue);
+            sqlCmd.Parameters["@password"].Direction = ParameterDirection.Output;
+            sqlCmd.ExecuteNonQuery();
+            String password = sqlCmd.Parameters["@password"].Value.ToString();
+            return password;
         }
     }
 }

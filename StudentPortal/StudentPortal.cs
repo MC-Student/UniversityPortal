@@ -8,6 +8,8 @@ using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 using Microsoft.VisualBasic.ApplicationServices;
 using System.Reflection.Emit;
+using System.Text;
+using System.Security.Cryptography;
 
 namespace StudentPortal
 {
@@ -62,6 +64,16 @@ namespace StudentPortal
         public void SetUser(string s)
         {
             user = s;
+            MessageBox.Show("Welcome, " + user);
+        }
+
+        private void encryptPwText() 
+        {
+            String rawData = "admin";
+            //byte[] raw = Encoding.ASCII.GetBytes(rawData);
+            byte[] bytes = SHA256.HashData(Encoding.UTF8.GetBytes(rawData));
+            string hashedpassword = Convert.ToBase64String(bytes);
+            MessageBox.Show(hashedpassword);
         }
     }
 }
