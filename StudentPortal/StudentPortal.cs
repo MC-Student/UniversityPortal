@@ -65,6 +65,8 @@ namespace StudentPortal
         {
             user = s;
             MessageBox.Show("Welcome, " + user);
+            LoggedInPortal portal = new LoggedInPortal();
+            portal.ShowDialog();
         }
 
         private void encryptPwText() 
