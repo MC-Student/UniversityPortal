@@ -31,6 +31,7 @@
             tab_grades = new TabControl();
             tabPage1 = new TabPage();
             tabPage2 = new TabPage();
+            semester_list_year = new ListBox();
             register_button = new Button();
             get_courses_button = new Button();
             semester_list_seaon = new ListBox();
@@ -45,7 +46,6 @@
             coReqs = new DataGridViewTextBoxColumn();
             Add_or_drop = new DataGridViewTextBoxColumn();
             tabPage3 = new TabPage();
-            semester_list_year = new ListBox();
             tab_grades.SuspendLayout();
             tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)data_grid_view_courses).BeginInit();
@@ -90,6 +90,16 @@
             tabPage2.Text = "My Classes";
             tabPage2.UseVisualStyleBackColor = true;
             // 
+            // semester_list_year
+            // 
+            semester_list_year.FormattingEnabled = true;
+            semester_list_year.ItemHeight = 25;
+            semester_list_year.Items.AddRange(new object[] { "2020", "2021" });
+            semester_list_year.Location = new Point(214, 56);
+            semester_list_year.Name = "semester_list_year";
+            semester_list_year.Size = new Size(109, 54);
+            semester_list_year.TabIndex = 4;
+            // 
             // register_button
             // 
             register_button.Location = new Point(583, 65);
@@ -121,7 +131,14 @@
             // 
             // data_grid_view_courses
             // 
-            data_grid_view_courses.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            data_grid_view_courses.AllowUserToAddRows = false;
+            data_grid_view_courses.AllowUserToDeleteRows = false;
+            data_grid_view_courses.AllowUserToResizeColumns = false;
+            data_grid_view_courses.AllowUserToResizeRows = false;
+            data_grid_view_courses.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            data_grid_view_courses.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            data_grid_view_courses.ColumnHeadersHeight = 34;
+            data_grid_view_courses.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             data_grid_view_courses.Columns.AddRange(new DataGridViewColumn[] { course_title, course_num, instructor_full_name, day, start_time, end_time, pre_reqs, coReqs, Add_or_drop });
             data_grid_view_courses.Location = new Point(3, 160);
             data_grid_view_courses.Name = "data_grid_view_courses";
@@ -139,7 +156,7 @@
             course_title.MinimumWidth = 8;
             course_title.Name = "course_title";
             course_title.ReadOnly = true;
-            course_title.Width = 150;
+            course_title.Width = 140;
             // 
             // course_num
             // 
@@ -147,7 +164,7 @@
             course_num.MinimumWidth = 8;
             course_num.Name = "course_num";
             course_num.ReadOnly = true;
-            course_num.Width = 150;
+            course_num.Width = 173;
             // 
             // instructor_full_name
             // 
@@ -155,7 +172,7 @@
             instructor_full_name.MinimumWidth = 8;
             instructor_full_name.Name = "instructor_full_name";
             instructor_full_name.ReadOnly = true;
-            instructor_full_name.Width = 150;
+            instructor_full_name.Width = 176;
             // 
             // day
             // 
@@ -163,7 +180,7 @@
             day.MinimumWidth = 8;
             day.Name = "day";
             day.ReadOnly = true;
-            day.Width = 150;
+            day.Width = 79;
             // 
             // start_time
             // 
@@ -171,7 +188,7 @@
             start_time.MinimumWidth = 8;
             start_time.Name = "start_time";
             start_time.ReadOnly = true;
-            start_time.Width = 150;
+            start_time.Width = 127;
             // 
             // end_time
             // 
@@ -179,7 +196,7 @@
             end_time.MinimumWidth = 8;
             end_time.Name = "end_time";
             end_time.ReadOnly = true;
-            end_time.Width = 150;
+            end_time.Width = 121;
             // 
             // pre_reqs
             // 
@@ -187,7 +204,7 @@
             pre_reqs.MinimumWidth = 8;
             pre_reqs.Name = "pre_reqs";
             pre_reqs.ReadOnly = true;
-            pre_reqs.Width = 150;
+            pre_reqs.Width = 111;
             // 
             // coReqs
             // 
@@ -195,14 +212,14 @@
             coReqs.MinimumWidth = 8;
             coReqs.Name = "coReqs";
             coReqs.ReadOnly = true;
-            coReqs.Width = 150;
+            coReqs.Width = 108;
             // 
             // Add_or_drop
             // 
             Add_or_drop.HeaderText = "Add / Drop";
             Add_or_drop.MinimumWidth = 8;
             Add_or_drop.Name = "Add_or_drop";
-            Add_or_drop.Width = 150;
+            Add_or_drop.Width = 140;
             // 
             // tabPage3
             // 
@@ -214,16 +231,6 @@
             tabPage3.TabIndex = 2;
             tabPage3.Text = "My Grades";
             tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // semester_list_year
-            // 
-            semester_list_year.FormattingEnabled = true;
-            semester_list_year.ItemHeight = 25;
-            semester_list_year.Items.AddRange(new object[] { "2020", "2021" });
-            semester_list_year.Location = new Point(214, 56);
-            semester_list_year.Name = "semester_list_year";
-            semester_list_year.Size = new Size(109, 54);
-            semester_list_year.TabIndex = 4;
             // 
             // LoggedInPortal
             // 

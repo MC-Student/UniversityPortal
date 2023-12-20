@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
+using System.Data.SqlTypes;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -64,22 +67,36 @@ namespace StudentPortal
 
         private void get_courses_button_Click(object sender, EventArgs e)
         {
-            Object season = semester_list_seaon.SelectedValue;
-            Object year = semester_list_year.SelectedValue;
+            data_grid_view_courses.Rows.Clear();
+            String season = semester_list_seaon.SelectedItem.ToString();
+            String year = semester_list_year.SelectedItem.ToString();
+            data_grid_view_courses.AutoGenerateColumns = true;
 
             //get the course info using SP given a specific semester and fill data grid view
             DataTable dt = new DataTable();
             SqlCommand myCmd = new SqlCommand("GetAvailableCourses", sqlCon);
             myCmd.CommandType = CommandType.StoredProcedure;
-            myCmd.Parameters.AddWithValue("@Season", season);
-            myCmd.Parameters.AddWithValue("@Year", year);
-            using (SqlDataAdapter adapter = new SqlDataAdapter(myCmd))
-            {
-                adapter.Fill(dt);
-            }
-            data_grid_view_courses.DataSource = dt;
-            data_grid_view_courses.Visible = true;
 
+            myCmd.Parameters.Add("@Season", System.Data.SqlDbType.VarChar).Value = season;
+            myCmd.Parameters.Add("@Year", System.Data.SqlDbType.VarChar).Value = year;
+
+            SqlDataAdapter adapter = new SqlDataAdapter(myCmd);
+
+            adapter.Fill(dt);
+
+            ArrayList list = new ArrayList();
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                foreach (DataColumn column in dt.Columns)
+                {
+                    list.Add(dt.Rows[i][column].ToString());
+                }
+
+                data_grid_view_courses.Rows.Add(list[0], list[1], list[2], list[3], list[4]
+                    , list[5], list[6], list[7]);
+                list.Clear();
+            }
+            data_grid_view_courses.Visible = true;
         }
     }
 }
