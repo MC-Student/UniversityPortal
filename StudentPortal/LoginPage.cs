@@ -54,6 +54,7 @@ namespace StudentPortal
             {
                 String text = un_input.Text;
                 StudentPortal parent = (StudentPortal)this.Owner;
+
                 if (ValidatePassword(text))
                 {
                     parent.SetUser(text);

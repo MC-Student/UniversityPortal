@@ -16,23 +16,14 @@ namespace StudentPortal
     public partial class StudentPortal : Form
     {
         private SqlConnection sqlCon;
-        private DataSet dataSet;
         private String user;
         public StudentPortal()
         {
             InitializeComponent();
+            CreateConnection();
         }
 
-        private void StudentPortal_Load(object sender, EventArgs e)
-        {
-            if (CreateConnection())
-            {
-                dataSet = new DataSet();
-                MessageBox.Show("Connected to university database");
-            }
-        }
-
-        private Boolean CreateConnection()
+        private void CreateConnection()
         {
             try
             {
@@ -42,21 +33,17 @@ namespace StudentPortal
                 string strConnect = $"Server={strServer};Database={strDatabase};Trusted_Connection=True;";
                 sqlCon = new SqlConnection(strConnect);
                 sqlCon.Open();
-                return true;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(" " + DateTime.Now.ToLongTimeString() + "  " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            return false;
         }
 
         private void LogInButton_Click(object sender, EventArgs e)
         {
             using (LoginPage child = new LoginPage())
             {
-                // passing this in ShowDialog will set the .Owner 
-                // property of the child form
                 child.ShowDialog(this);
             }
         }
@@ -64,18 +51,12 @@ namespace StudentPortal
         public void SetUser(string s)
         {
             user = s;
-            MessageBox.Show("Welcome, " + user);
-            LoggedInPortal portal = new LoggedInPortal();
-            portal.ShowDialog();
-        }
-
-        private void encryptPwText() 
-        {
-            String rawData = "admin";
-            //byte[] raw = Encoding.ASCII.GetBytes(rawData);
-            byte[] bytes = SHA256.HashData(Encoding.UTF8.GetBytes(rawData));
-            string hashedpassword = Convert.ToBase64String(bytes);
-            MessageBox.Show(hashedpassword);
+            if (!s.Equals("")) 
+            {
+                MessageBox.Show("Welcome, " + user);
+                LoggedInPortal portal = new LoggedInPortal(user);
+                portal.ShowDialog();
+            }
         }
     }
 }

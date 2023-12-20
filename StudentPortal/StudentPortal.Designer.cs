@@ -28,18 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.PortalTitle = new System.Windows.Forms.TextBox();
             this.LogInButton = new System.Windows.Forms.Button();
+            this.portal_title = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
-            // PortalTitle
-            // 
-            this.PortalTitle.Location = new System.Drawing.Point(297, 131);
-            this.PortalTitle.Name = "PortalTitle";
-            this.PortalTitle.ReadOnly = true;
-            this.PortalTitle.Size = new System.Drawing.Size(173, 27);
-            this.PortalTitle.TabIndex = 0;
-            this.PortalTitle.Text = "University Student Portal";
             // 
             // LogInButton
             // 
@@ -51,24 +42,31 @@
             this.LogInButton.UseVisualStyleBackColor = true;
             this.LogInButton.Click += new System.EventHandler(this.LogInButton_Click);
             // 
+            // portal_title
+            // 
+            this.portal_title.AutoSize = true;
+            this.portal_title.Location = new System.Drawing.Point(305, 127);
+            this.portal_title.Name = "portal_title";
+            this.portal_title.Size = new System.Drawing.Size(170, 20);
+            this.portal_title.TabIndex = 2;
+            this.portal_title.Text = "University Student Portal";
+            // 
             // StudentPortal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.portal_title);
             this.Controls.Add(this.LogInButton);
-            this.Controls.Add(this.PortalTitle);
             this.Name = "StudentPortal";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.StudentPortal_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private TextBox PortalTitle;
         private Button LogInButton;
+        private Label portal_title;
     }
 }

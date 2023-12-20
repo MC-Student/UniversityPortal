@@ -13,16 +13,16 @@ namespace StudentPortal
 {
     public partial class LoggedInPortal : Form
     {
+        private String username;
         private SqlConnection sqlCon;
-        public LoggedInPortal()
+        public LoggedInPortal(string user)
         {
-            if (CreateConnection())
-            {
-                InitializeComponent();
-            }
+            InitializeComponent();
+            this.username = user;
+            CreateConnection();
         }
 
-        private Boolean CreateConnection()
+        private void CreateConnection()
         {
             try
             {
@@ -32,13 +32,11 @@ namespace StudentPortal
                 string strConnect = $"Server={strServer};Database={strDatabase};Trusted_Connection=True;";
                 sqlCon = new SqlConnection(strConnect);
                 sqlCon.Open();
-                return true;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(" " + DateTime.Now.ToLongTimeString() + "  " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            return false;
         }
 
         private void tabPage1_Click(object sender, EventArgs e)
@@ -54,9 +52,9 @@ namespace StudentPortal
                2. Select start and end semester to obtain transcript; button to get transcript (Stored procedure with 
             start and end semester to get sections’ names and grades)
              */
-            GetCurrentClassNames();
-            GetCurrentClassCodes();
-            GetCurrentGrades();
+            //GetCurrentClassNames();
+            //GetCurrentClassCodes();
+            //GetCurrentGrades();
         }
     }
 }
