@@ -1,7 +1,7 @@
 
 # UniversityPortal
 
-BUG FOUN: When pressing cancel on the login page, the logged in page opens regardless. This needs fixing. 
+BUG FOUND: When pressing cancel on the login page, the logged in page opens regardless. This needs fixing. 
 
 - Work below due Wednesday! See some examples of UI [here](https://docs.google.com/document/d/1LjqK5Fo6xtL95sweyEVIr2FRsDMa_Td999YPmWQpeO4/edit?usp=sharing)
 - Review requirements for each tab in student app using [List of reports/apps](https://docs.google.com/document/d/1iLkEf6UJe8XEaxrWop2d4ez3JVAtTNC-8GSqJSv3daE/edit?usp=sharing  "List of reports as of Dec 14")
