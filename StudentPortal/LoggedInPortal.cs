@@ -39,7 +39,12 @@ namespace StudentPortal
             }
         }
 
-        private void tabPage1_Click(object sender, EventArgs e)
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void LoggedInPortal_Load(object sender, EventArgs e)
         {
             ShowInitialInfo();
         }
@@ -55,6 +60,26 @@ namespace StudentPortal
             //GetCurrentClassNames();
             //GetCurrentClassCodes();
             //GetCurrentGrades();
+        }
+
+        private void get_courses_button_Click(object sender, EventArgs e)
+        {
+            Object season = semester_list_seaon.SelectedValue;
+            Object year = semester_list_year.SelectedValue;
+
+            //get the course info using SP given a specific semester and fill data grid view
+            DataTable dt = new DataTable();
+            SqlCommand myCmd = new SqlCommand("GetAvailableCourses", sqlCon);
+            myCmd.CommandType = CommandType.StoredProcedure;
+            myCmd.Parameters.AddWithValue("@Season", season);
+            myCmd.Parameters.AddWithValue("@Year", year);
+            using (SqlDataAdapter adapter = new SqlDataAdapter(myCmd))
+            {
+                adapter.Fill(dt);
+            }
+            data_grid_view_courses.DataSource = dt;
+            data_grid_view_courses.Visible = true;
+
         }
     }
 }
