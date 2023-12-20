@@ -20,7 +20,6 @@ namespace StudentPortal
             InitializeComponent();
             this.username = user;
             CreateConnection();
-            //just a test
         }
 
         private void CreateConnection()
