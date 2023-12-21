@@ -32,7 +32,6 @@
             tabPage1 = new TabPage();
             tabPage2 = new TabPage();
             semester_list_year = new ListBox();
-            register_button = new Button();
             get_courses_button = new Button();
             semester_list_seaon = new ListBox();
             data_grid_view_courses = new DataGridView();
@@ -44,7 +43,6 @@
             end_time = new DataGridViewTextBoxColumn();
             pre_reqs = new DataGridViewTextBoxColumn();
             coReqs = new DataGridViewTextBoxColumn();
-            Add_or_drop = new DataGridViewTextBoxColumn();
             tabPage3 = new TabPage();
             tab_grades.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -77,7 +75,6 @@
             // tabPage2
             // 
             tabPage2.Controls.Add(semester_list_year);
-            tabPage2.Controls.Add(register_button);
             tabPage2.Controls.Add(get_courses_button);
             tabPage2.Controls.Add(semester_list_seaon);
             tabPage2.Controls.Add(data_grid_view_courses);
@@ -99,15 +96,6 @@
             semester_list_year.Name = "semester_list_year";
             semester_list_year.Size = new Size(109, 54);
             semester_list_year.TabIndex = 4;
-            // 
-            // register_button
-            // 
-            register_button.Location = new Point(583, 65);
-            register_button.Name = "register_button";
-            register_button.Size = new Size(156, 34);
-            register_button.TabIndex = 3;
-            register_button.Text = "Register";
-            register_button.UseVisualStyleBackColor = true;
             // 
             // get_courses_button
             // 
@@ -139,7 +127,7 @@
             data_grid_view_courses.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             data_grid_view_courses.ColumnHeadersHeight = 34;
             data_grid_view_courses.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            data_grid_view_courses.Columns.AddRange(new DataGridViewColumn[] { course_title, course_num, instructor_full_name, day, start_time, end_time, pre_reqs, coReqs, Add_or_drop });
+            data_grid_view_courses.Columns.AddRange(new DataGridViewColumn[] { course_title, course_num, instructor_full_name, day, start_time, end_time, pre_reqs, coReqs });
             data_grid_view_courses.Location = new Point(3, 160);
             data_grid_view_courses.Name = "data_grid_view_courses";
             data_grid_view_courses.RowHeadersVisible = false;
@@ -214,13 +202,6 @@
             coReqs.ReadOnly = true;
             coReqs.Width = 108;
             // 
-            // Add_or_drop
-            // 
-            Add_or_drop.HeaderText = "Add / Drop";
-            Add_or_drop.MinimumWidth = 8;
-            Add_or_drop.Name = "Add_or_drop";
-            Add_or_drop.Width = 140;
-            // 
             // tabPage3
             // 
             tabPage3.Location = new Point(4, 34);
@@ -261,6 +242,7 @@
         private ListBox semester_list_seaon;
         private DataGridView data_grid_view_courses;
         private Button get_courses_button;
+        private ListBox semester_list_year;
         private DataGridViewTextBoxColumn course_title;
         private DataGridViewTextBoxColumn course_num;
         private DataGridViewTextBoxColumn instructor_full_name;
@@ -269,8 +251,5 @@
         private DataGridViewTextBoxColumn end_time;
         private DataGridViewTextBoxColumn pre_reqs;
         private DataGridViewTextBoxColumn coReqs;
-        private DataGridViewTextBoxColumn Add_or_drop;
-        private Button register_button;
-        private ListBox semester_list_year;
     }
 }
