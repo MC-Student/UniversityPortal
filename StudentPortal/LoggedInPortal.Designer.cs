@@ -44,6 +44,7 @@
             pre_reqs = new DataGridViewTextBoxColumn();
             coReqs = new DataGridViewTextBoxColumn();
             tabPage3 = new TabPage();
+            button_register = new Button();
             tab_grades.SuspendLayout();
             tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)data_grid_view_courses).BeginInit();
@@ -74,6 +75,7 @@
             // 
             // tabPage2
             // 
+            tabPage2.Controls.Add(button_register);
             tabPage2.Controls.Add(semester_list_year);
             tabPage2.Controls.Add(get_courses_button);
             tabPage2.Controls.Add(semester_list_seaon);
@@ -213,6 +215,16 @@
             tabPage3.Text = "My Grades";
             tabPage3.UseVisualStyleBackColor = true;
             // 
+            // button_register
+            // 
+            button_register.Location = new Point(573, 65);
+            button_register.Name = "button_register";
+            button_register.Size = new Size(156, 34);
+            button_register.TabIndex = 5;
+            button_register.Text = "Register";
+            button_register.UseVisualStyleBackColor = true;
+            button_register.Click += button_register_Click;
+            // 
             // LoggedInPortal
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -251,5 +263,6 @@
         private DataGridViewTextBoxColumn end_time;
         private DataGridViewTextBoxColumn pre_reqs;
         private DataGridViewTextBoxColumn coReqs;
+        private Button button_register;
     }
 }

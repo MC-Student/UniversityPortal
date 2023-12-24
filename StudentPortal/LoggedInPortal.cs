@@ -69,20 +69,19 @@ namespace StudentPortal
         {
             GetCourses();
 
-
-
             // Add a CellClick handler to handle clicks in the button column.
             data_grid_view_courses.CellClick +=
-                new DataGridViewCellEventHandler(data_grid_view_courses_CellClick);
+               new DataGridViewCellEventHandler(dataGridView1_CellContentClick);
         }
 
-        void data_grid_view_courses_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            // Check if the clicked cell is in the "Add Courses" or "Drop Courses" column           
-            if (e.RowIndex >= 0 &&
-                (e.ColumnIndex == data_grid_view_courses.Columns["Add Courses"].Index ||
-                 e.ColumnIndex == data_grid_view_courses.Columns["Drop Courses"].Index))
+            var senderGrid = (DataGridView)sender;
+
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn &&
+                e.RowIndex >= 0)
             {
+                //TODO - Button Clicked - Execute Code Here
                 // Retrieve the values from the clicked row
                 String course = data_grid_view_courses.Rows[e.RowIndex].Cells["course_title"].Value as String;
                 MessageBox.Show(course);
@@ -90,8 +89,8 @@ namespace StudentPortal
                 String courseNum = data_grid_view_courses.Rows[e.RowIndex].Cells["course_num"].Value as String;
                 MessageBox.Show(courseNum);
             }
-
         }
+
 
 
         private void GetCourses()
@@ -126,9 +125,13 @@ namespace StudentPortal
                 list.Clear();
             }
 
-            // Add a button column. 
+            data_grid_view_courses.Visible = true;
+        }
+
+        private void button_register_Click(object sender, EventArgs e)
+        {
             DataGridViewButtonColumn buttonColumn =
-                new DataGridViewButtonColumn();
+                    new DataGridViewButtonColumn();
             buttonColumn.HeaderText = "Add";
             buttonColumn.Name = "Add Course";
             buttonColumn.Text = "Add Course";
@@ -146,9 +149,6 @@ namespace StudentPortal
             buttonColumn1.UseColumnTextForButtonValue = true;
 
             data_grid_view_courses.Columns.Add(buttonColumn1);
-
-            data_grid_view_courses.Visible = true;
         }
-
     }
 }
