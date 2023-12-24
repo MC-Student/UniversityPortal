@@ -125,30 +125,30 @@ namespace StudentPortal
                 list.Clear();
             }
 
-            data_grid_view_courses.Visible = true;
-        }
+            if(data_grid_view_courses.Columns.Contains("Add Course") == false)
+            {
+                DataGridViewButtonColumn buttonColumn =
+                   new DataGridViewButtonColumn();
+                buttonColumn.HeaderText = "Add";
+                buttonColumn.Name = "Add Course";
+                buttonColumn.Text = "Add Course";
+                buttonColumn.UseColumnTextForButtonValue = true;
 
-        private void button_register_Click(object sender, EventArgs e)
-        {
-            DataGridViewButtonColumn buttonColumn =
+                data_grid_view_courses.Columns.Add(buttonColumn);
+
+
+                // Add a button column. 
+                DataGridViewButtonColumn buttonColumn1 =
                     new DataGridViewButtonColumn();
-            buttonColumn.HeaderText = "Add";
-            buttonColumn.Name = "Add Course";
-            buttonColumn.Text = "Add Course";
-            buttonColumn.UseColumnTextForButtonValue = true;
+                buttonColumn1.HeaderText = "Drop";
+                buttonColumn1.Name = "Drop Course";
+                buttonColumn1.Text = "Drop Course";
+                buttonColumn1.UseColumnTextForButtonValue = true;
 
-            data_grid_view_courses.Columns.Add(buttonColumn);
+                data_grid_view_courses.Columns.Add(buttonColumn1);
+            }
 
-
-            // Add a button column. 
-            DataGridViewButtonColumn buttonColumn1 =
-                new DataGridViewButtonColumn();
-            buttonColumn1.HeaderText = "Drop";
-            buttonColumn1.Name = "Drop Course";
-            buttonColumn1.Text = "Drop Course";
-            buttonColumn1.UseColumnTextForButtonValue = true;
-
-            data_grid_view_courses.Columns.Add(buttonColumn1);
+            data_grid_view_courses.Visible = true;
         }
     }
 }

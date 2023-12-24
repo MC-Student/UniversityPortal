@@ -223,7 +223,6 @@
             button_register.TabIndex = 5;
             button_register.Text = "Register";
             button_register.UseVisualStyleBackColor = true;
-            button_register.Click += button_register_Click;
             // 
             // LoggedInPortal
             // 
