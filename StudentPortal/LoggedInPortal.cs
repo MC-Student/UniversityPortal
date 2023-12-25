@@ -38,13 +38,6 @@ namespace StudentPortal
                 MessageBox.Show(" " + DateTime.Now.ToLongTimeString() + "  " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-        private void tabPage1_Click(object sender, EventArgs e)
-        {
-            ShowInitialInfo();
-
-        }
-
         private void ShowInitialInfo()
         {
             /*
@@ -56,11 +49,6 @@ namespace StudentPortal
             //GetCurrentClassNames();
             //GetCurrentClassCodes();
             //GetCurrentGrades();
-        }
-
-        private void textBox8_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void populateStudentInformation(String username)
@@ -236,7 +224,10 @@ namespace StudentPortal
                 populateStudentInformation(username);
             }
         }
+        private void SemesterSelected(object sender, EventArgs e)
+        {
 
-    
+        }
+
     }
 }
