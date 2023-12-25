@@ -39,11 +39,6 @@ namespace StudentPortal
             }
         }
 
-        private void tabPage1_Click(object sender, EventArgs e)
-        {
-            ShowInitialInfo();
-        }
-
         private void ShowInitialInfo()
         {
             /*
@@ -55,6 +50,11 @@ namespace StudentPortal
             //GetCurrentClassNames();
             //GetCurrentClassCodes();
             //GetCurrentGrades();
+        }
+
+        private void SemesterSelected(object sender, EventArgs e)
+        {
+
         }
     }
 }
