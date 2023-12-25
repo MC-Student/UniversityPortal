@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.ApplicationServices;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -81,6 +82,35 @@ namespace StudentPortal
             if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn &&
                 e.RowIndex >= 0)
             {
+                int studentId;
+                //call SP getStudentID to get the username for the user
+                SqlCommand sqlCmd = new SqlCommand("getStudentID", sqlCon);
+                sqlCmd.CommandType = CommandType.StoredProcedure;
+                sqlCmd.Parameters.Add("@username", SqlDbType.VarChar).Value = this.username;
+
+                // Execute the command and get the result
+                using (SqlDataReader reader = sqlCmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        // Access the value returned by the stored procedure
+                        studentId = reader.GetInt32(0);
+                    }
+                }
+
+
+                if (senderGrid.Columns[e.ColumnIndex].Name.ToString().Equals("Add Course"))
+                {
+                    MessageBox.Show("Clicked on Add Course");
+                    //Call SP to get registration limit - if its greater than 0 then can register
+
+
+                }
+
+                else if (senderGrid.Columns[e.ColumnIndex].Name.ToString().Equals("Drop Course"))
+                {
+                    MessageBox.Show("Clicked on Drop Course");
+                }
                 //TODO - Button Clicked - Execute Code Here
                 // Retrieve the values from the clicked row
                 String course = data_grid_view_courses.Rows[e.RowIndex].Cells["course_title"].Value as String;
@@ -90,6 +120,7 @@ namespace StudentPortal
                 MessageBox.Show(courseNum);
             }
         }
+        
 
 
 
@@ -125,7 +156,7 @@ namespace StudentPortal
                 list.Clear();
             }
 
-            if(data_grid_view_courses.Columns.Contains("Add Course") == false)
+            if (data_grid_view_courses.Columns.Contains("Add Course") == false)
             {
                 DataGridViewButtonColumn buttonColumn =
                    new DataGridViewButtonColumn();
