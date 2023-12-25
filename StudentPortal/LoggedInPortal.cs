@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -52,9 +53,55 @@ namespace StudentPortal
             //GetCurrentGrades();
         }
 
+        private void InfoTabLoadSelected(object sender, TabControlEventArgs e)
+        {
+            if (e.TabPageIndex == 2)
+            {
+                gradeView.Columns.Add("col_sectionCode", "Section Code");
+                gradeView.Columns.Add("col_sectionName", "Section Name");
+                gradeView.Columns.Add("col_sectionGrade", "Grade");
+                gradeView.Visible = true;
+            }
+        }
+
         private void SemesterSelected(object sender, EventArgs e)
         {
+            ShowGrades();
+        }
 
+        private void ShowGrades() 
+        {
+            gradeView.Rows.Clear();
+            String semester = dropdownSemesters.Text;
+            String season = semester.Split(" ")[0];
+            String year = semester.Split(" ")[1];
+            
+            gradeView.AutoGenerateColumns = true;
+
+            DataTable dt = new DataTable();
+            SqlCommand myCmd = new SqlCommand("sp_GetSemesterGrades", sqlCon);
+            myCmd.CommandType = CommandType.StoredProcedure;
+            myCmd.Parameters.Add("@Season", System.Data.SqlDbType.VarChar).Value = season;
+            myCmd.Parameters.Add("@Year", System.Data.SqlDbType.VarChar).Value = year;
+            myCmd.Parameters.Add("@Username", System.Data.SqlDbType.VarChar).Value = username;
+
+            SqlDataAdapter adapter = new SqlDataAdapter(myCmd);
+            adapter.Fill(dt);
+
+            ArrayList list = new ArrayList();
+            
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                foreach (DataColumn column in dt.Columns)
+                {
+                    list.Add(dt.Rows[i][column].ToString());
+                }
+
+                gradeView.Rows.Add(list[0], list[1], list[2]);
+                list.Clear();
+            }
+
+            gradeView.Visible = true;
         }
     }
 }
