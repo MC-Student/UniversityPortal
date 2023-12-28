@@ -101,6 +101,13 @@ namespace StudentPortal
                 list.Clear();
             }
 
+
+            for (int i = 0; i <= gradeView.Columns.Count - 1; i++)
+            {
+                gradeView.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                gradeView.Columns[i].Width = gradeView.Columns[i].Width;
+            }
+
             gradeView.Visible = true;
         }
     }

@@ -90,6 +90,7 @@
             this.gradeView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gradeView.Location = new System.Drawing.Point(230, 45);
             this.gradeView.Name = "gradeView";
+            this.gradeView.RowHeadersVisible = false;
             this.gradeView.RowHeadersWidth = 51;
             this.gradeView.RowTemplate.Height = 29;
             this.gradeView.Size = new System.Drawing.Size(532, 285);
