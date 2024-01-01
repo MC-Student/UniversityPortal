@@ -82,7 +82,7 @@ namespace StudentPortal
             if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn &&
                 e.RowIndex >= 0)
             {
-                int studentId;
+                int studentId = 0;
                 //call SP getStudentID to get the username for the user
                 SqlCommand sqlCmd = new SqlCommand("getStudentID", sqlCon);
                 sqlCmd.CommandType = CommandType.StoredProcedure;
@@ -98,32 +98,138 @@ namespace StudentPortal
                     }
                 }
 
+                // Call SP to get Section ID given the selected title
+                int sectionId = 1;
+                String course = data_grid_view_courses.Rows[e.RowIndex].Cells["course_title"].Value as String;
+
+                SqlCommand cmnd = new SqlCommand("SPGetSectionID", sqlCon);
+                cmnd.CommandType = CommandType.StoredProcedure;
+                cmnd.Parameters.Add("@CourseTitle", SqlDbType.VarChar).Value = course;
+
+                // Execute the command and get the result
+                using (SqlDataReader reader = cmnd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        // Access the value returned by the stored procedure
+                        sectionId = reader.GetInt32(0);
+                    }
+                }
+
+                //Call stored procedure to make set enrollment status
+                bool currentlyEnrolled = false;
+                int returnedVal = 0;
+
+                SqlCommand theCommand = new SqlCommand("SP_CurrentEnrollment", sqlCon);
+                theCommand.CommandType = CommandType.StoredProcedure;
+                theCommand.Parameters.Add("@studentId", SqlDbType.Int).Value = studentId;
+                theCommand.Parameters.Add("@sectionId", SqlDbType.Int).Value = sectionId;
+
+                // Execute the command and get the result
+                using (SqlDataReader reader = theCommand.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        // Access the value returned by the stored procedure
+                        returnedVal = reader.GetInt32(0);
+                    }
+                }
+                if (returnedVal != 0)
+                {
+                    currentlyEnrolled = true;
+                }
+
 
                 if (senderGrid.Columns[e.ColumnIndex].Name.ToString().Equals("Add Course"))
                 {
-                    MessageBox.Show("Clicked on Add Course");
-                    //Call SP to get registration limit - if its greater than 0 then can register
+
+                    //Call SP to get registration limit - if its greater than 0
+                    //AND not currently enrolled then can register
+                    int slotsLeft = 0;
+
+                    SqlCommand command = new SqlCommand("SPGetSlotsLeft", sqlCon);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("@sectionId", SqlDbType.Int).Value = sectionId;
+
+                    // Execute the command and get the result
+                    using (SqlDataReader reader = cmnd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            // Access the value returned by the stored procedure
+                            slotsLeft = reader.GetInt32(0);
+                        }
+                    }
+                    if (slotsLeft < 1)
+                    {
+                        //If cannot register let user know
+                        MessageBox.Show("The course is full");
+                    }
+                    else if (currentlyEnrolled == false)
+                    {
+                        //Once can register, call SP to register, let user know that registered
+                        SqlCommand addCourseCmnd = new SqlCommand("SP_InsertRegistration", sqlCon);
+
+                        // Specify that the command is a stored procedure
+                        addCourseCmnd.CommandType = CommandType.StoredProcedure;
+
+                        // Add parameters to the command
+                        addCourseCmnd.Parameters.Add("@SectionId", SqlDbType.Int).Value = sectionId;
+                        addCourseCmnd.Parameters.Add("@StudentId", SqlDbType.Int).Value = studentId;
 
 
+                        try
+                        {
+                            // Execute the stored procedure
+                            addCourseCmnd.ExecuteNonQuery();
+                            MessageBox.Show("Added Course Successfully.");
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error Adding Course.");
+                        }
+
+
+                    }
                 }
 
                 else if (senderGrid.Columns[e.ColumnIndex].Name.ToString().Equals("Drop Course"))
                 {
-                    MessageBox.Show("Clicked on Drop Course");
-                }
-                //TODO - Button Clicked - Execute Code Here
-                // Retrieve the values from the clicked row
-                String course = data_grid_view_courses.Rows[e.RowIndex].Cells["course_title"].Value as String;
-                MessageBox.Show(course);
+                    //Call SP to make sure that registered for the course 
+                    if (currentlyEnrolled)
+                    {
+                        //once confirmed that currently enrolled, call SP to drop it, once dropped let user know done
+                        SqlCommand dropCourseCmnd = new SqlCommand("SP_DropCourse", sqlCon);
 
-                String courseNum = data_grid_view_courses.Rows[e.RowIndex].Cells["course_num"].Value as String;
-                MessageBox.Show(courseNum);
+                        // Specify that the command is a stored procedure
+                        dropCourseCmnd.CommandType = CommandType.StoredProcedure;
+
+                        // Add parameters to the command
+                        dropCourseCmnd.Parameters.Add("@SectionId", SqlDbType.Int).Value = sectionId;
+                        dropCourseCmnd.Parameters.Add("@StudentId", SqlDbType.Int).Value = studentId;
+
+
+                        try
+                        {
+                            // Execute the stored procedure
+                            dropCourseCmnd.ExecuteNonQuery();
+                            MessageBox.Show("Dropped Course Successfully.");
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error Dropping Course.");
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Not currently Enrolled, so cannot drop");
+                    }
+                }
+
             }
         }
         
-
-
-
+        
         private void GetCourses()
         {
             data_grid_view_courses.Rows.Clear();
