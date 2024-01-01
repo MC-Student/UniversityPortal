@@ -5,10 +5,14 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ceTe.DynamicPDF;
+using ceTe.DynamicPDF.PageElements;
 
 namespace StudentPortal
 {
@@ -101,7 +105,6 @@ namespace StudentPortal
                 list.Clear();
             }
 
-
             for (int i = 0; i <= gradeView.Columns.Count - 1; i++)
             {
                 gradeView.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
@@ -109,6 +112,114 @@ namespace StudentPortal
             }
 
             gradeView.Visible = true;
+        }
+
+        private void transcriptButton_Click(object sender, EventArgs e)
+        {
+            String startSem = startSemList.Text;
+            String endSem = endSemList.Text;
+
+            String startSeason = startSem.Split(" ")[0];
+            String startYear = startSem.Split(" ")[1];
+            String endSeason = endSem.Split(" ")[0];
+            String endYear = endSem.Split(" ")[1];
+
+            if (RequestValid(startSeason, startYear, endSeason, endYear))
+            {
+                DataTable info = GetTranscriptInfo(startSeason, startYear, endSeason, endYear);
+
+                Document document = new Document();
+                Page page = new Page();
+                document.Pages.Add(page);
+                Table2 table = new(20, 100, 600, 600);
+                table.Columns.Add(100);
+                table.Columns.Add(100);
+                table.Columns.Add(100);
+                table.Columns.Add(100);
+                int i, j;
+                i = j = 0;
+
+                Row2 headerRow = table.Rows.Add(20, ceTe.DynamicPDF.Font.Helvetica, 12);
+                headerRow.Cells.Add("Semester");
+                headerRow.Cells.Add("Section Code");
+                headerRow.Cells.Add("Section Name");
+                headerRow.Cells.Add("Grade");
+
+                foreach (Cell2 cell in headerRow.Cells) 
+                {
+                    cell.Underline = true;
+                }
+
+                while (i < info.Rows.Count)
+                {
+                    Row2 newRow = table.Rows.Add(20, ceTe.DynamicPDF.Font.Helvetica, 12);
+                    while (j < info.Columns.Count)
+                    {
+                        newRow.Cells.Add(info.Rows[i][j].ToString());
+                        j++;
+                    }
+                    j = 0;
+                    i++;
+                }
+
+                page.Elements.Add(table);
+
+                saveFileDialog.Filter = "PDF Files (*.pdf)|*.pdf";
+                string monthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(DateTime.Now.Month);
+                saveFileDialog.FileName = username + " transcript " + monthName + " " + DateTime.Now.Year.ToString();
+
+                DialogResult result = saveFileDialog.ShowDialog();
+
+                if (result == DialogResult.OK) 
+                {
+                    FileStream fileStream = (FileStream)saveFileDialog.OpenFile();
+                    document.Draw(fileStream);
+                    fileStream.Close();
+                }               
+            }
+        }
+
+        private DataTable GetTranscriptInfo(string startSeason, string startYear, string endSeason, string endYear)
+        {
+            DataTable dt = new DataTable();
+            SqlCommand myCmd = new SqlCommand("sp_GetTranscriptInfo", sqlCon);
+            myCmd.CommandType = CommandType.StoredProcedure;
+            myCmd.Parameters.Add("@StartSeason", System.Data.SqlDbType.VarChar).Value = startSeason;
+            myCmd.Parameters.Add("@StartYear", System.Data.SqlDbType.VarChar).Value = startYear;
+            myCmd.Parameters.Add("@EndSeason", System.Data.SqlDbType.VarChar).Value = endSeason;
+            myCmd.Parameters.Add("@EndYear", System.Data.SqlDbType.VarChar).Value = endYear;
+            myCmd.Parameters.Add("@Username", System.Data.SqlDbType.VarChar).Value = username;
+            SqlDataAdapter adapter = new SqlDataAdapter(myCmd);
+            adapter.Fill(dt);
+            return dt;
+        }
+
+        private Boolean RequestValid(string startSeason, string startYear, string endSeason, string endYear)
+        {
+            int start = Int32.Parse(startYear);
+            int end = Int32.Parse(endYear);
+
+            Boolean result = false;
+            if (start <= end)
+            {
+                if (start == end)
+                {
+                    if (startSeason.Equals(endSeason))
+                    {
+                        result = true;
+                    }
+                    else if (startSeason.Equals("Spring"))
+                    {
+                        result = true;
+                    }
+                }
+                else if (start < end) 
+                {
+                    result = true;
+                }
+            }
+
+            return result;
         }
     }
 }
