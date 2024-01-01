@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+<<<<<<< HEAD
             tab_grades = new TabControl();
             tabPage1 = new TabPage();
             tabPage2 = new TabPage();
@@ -48,6 +49,18 @@
             tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)data_grid_view_courses).BeginInit();
             SuspendLayout();
+=======
+            this.tab_grades = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dropdownSemesters = new System.Windows.Forms.ComboBox();
+            this.tab_grades.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.SuspendLayout();
+>>>>>>> b35ac3ea2c2cf8dad9b69feed38c9dc74530118f
             // 
             // tab_grades
             // 
@@ -63,6 +76,7 @@
             // 
             // tabPage1
             // 
+<<<<<<< HEAD
             tabPage1.Location = new Point(4, 34);
             tabPage1.Margin = new Padding(5);
             tabPage1.Name = "tabPage1";
@@ -71,6 +85,15 @@
             tabPage1.TabIndex = 0;
             tabPage1.Text = "My Information";
             tabPage1.UseVisualStyleBackColor = true;
+=======
+            this.tabPage1.Location = new System.Drawing.Point(4, 29);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(768, 393);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "My Information";
+            this.tabPage1.UseVisualStyleBackColor = true;
+>>>>>>> b35ac3ea2c2cf8dad9b69feed38c9dc74530118f
             // 
             // tabPage2
             // 
@@ -204,6 +227,7 @@
             // 
             // tabPage3
             // 
+<<<<<<< HEAD
             tabPage3.Location = new Point(4, 34);
             tabPage3.Margin = new Padding(4);
             tabPage3.Name = "tabPage3";
@@ -226,6 +250,57 @@
             tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)data_grid_view_courses).EndInit();
             ResumeLayout(false);
+=======
+            this.tabPage3.Controls.Add(this.dataGridView1);
+            this.tabPage3.Controls.Add(this.dropdownSemesters);
+            this.tabPage3.Location = new System.Drawing.Point(4, 29);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(768, 393);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "My Grades";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(230, 45);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersWidth = 51;
+            this.dataGridView1.RowTemplate.Height = 29;
+            this.dataGridView1.Size = new System.Drawing.Size(532, 285);
+            this.dataGridView1.TabIndex = 1;
+            // 
+            // dropdownSemesters
+            // 
+            this.dropdownSemesters.FormattingEnabled = true;
+            this.dropdownSemesters.Items.AddRange(new object[] {
+            "Fall 2021",
+            "Spring 2021",
+            "Fall 2020",
+            "Spring 2020"});
+            this.dropdownSemesters.Location = new System.Drawing.Point(611, 6);
+            this.dropdownSemesters.MaxDropDownItems = 4;
+            this.dropdownSemesters.Name = "dropdownSemesters";
+            this.dropdownSemesters.Size = new System.Drawing.Size(151, 28);
+            this.dropdownSemesters.TabIndex = 0;
+            this.dropdownSemesters.Text = "choose semester";
+            this.dropdownSemesters.SelectedValueChanged += new System.EventHandler(this.SemesterSelected);
+            // 
+            // LoggedInPortal
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.tab_grades);
+            this.Name = "LoggedInPortal";
+            this.Text = "LoggedInPortal";
+            this.tab_grades.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.ResumeLayout(false);
+
+>>>>>>> b35ac3ea2c2cf8dad9b69feed38c9dc74530118f
         }
 
         #endregion
@@ -234,6 +309,7 @@
         private TabPage tabPage1;
         private TabPage tabPage2;
         private TabPage tabPage3;
+<<<<<<< HEAD
         private ListBox registration_semester_list;
         private Label registration_instructions;
         private Button view_courses_button;
@@ -251,5 +327,9 @@
         private DataGridViewTextBoxColumn end_time;
         private DataGridViewTextBoxColumn pre_reqs;
         private DataGridViewTextBoxColumn coReqs;
+=======
+        private ComboBox dropdownSemesters;
+        private DataGridView dataGridView1;
+>>>>>>> b35ac3ea2c2cf8dad9b69feed38c9dc74530118f
     }
 }

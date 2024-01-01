@@ -228,8 +228,8 @@ namespace StudentPortal
 
             }
         }
-        
-        
+
+
         private void GetCourses()
         {
             data_grid_view_courses.Rows.Clear();
@@ -285,7 +285,13 @@ namespace StudentPortal
                 data_grid_view_courses.Columns.Add(buttonColumn1);
             }
 
+
             data_grid_view_courses.Visible = true;
+
+        }
+        private void SemesterSelected(object sender, EventArgs e)
+        {
+
         }
     }
 }
