@@ -191,6 +191,10 @@ namespace StudentPortal
 
 
                     }
+                    else
+                    {
+                        MessageBox.Show("Already enrolled in this course");
+                    }
                 }
 
                 else if (senderGrid.Columns[e.ColumnIndex].Name.ToString().Equals("Drop Course"))

@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-<<<<<<< HEAD
             tab_grades = new TabControl();
             tabPage1 = new TabPage();
             tabPage2 = new TabPage();
@@ -49,7 +48,6 @@
             tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)data_grid_view_courses).BeginInit();
             SuspendLayout();
-=======
             this.tab_grades = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -60,7 +58,6 @@
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
->>>>>>> b35ac3ea2c2cf8dad9b69feed38c9dc74530118f
             // 
             // tab_grades
             // 
@@ -76,7 +73,6 @@
             // 
             // tabPage1
             // 
-<<<<<<< HEAD
             tabPage1.Location = new Point(4, 34);
             tabPage1.Margin = new Padding(5);
             tabPage1.Name = "tabPage1";
@@ -85,7 +81,6 @@
             tabPage1.TabIndex = 0;
             tabPage1.Text = "My Information";
             tabPage1.UseVisualStyleBackColor = true;
-=======
             this.tabPage1.Location = new System.Drawing.Point(4, 29);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -93,7 +88,6 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "My Information";
             this.tabPage1.UseVisualStyleBackColor = true;
->>>>>>> b35ac3ea2c2cf8dad9b69feed38c9dc74530118f
             // 
             // tabPage2
             // 
@@ -227,7 +221,6 @@
             // 
             // tabPage3
             // 
-<<<<<<< HEAD
             tabPage3.Location = new Point(4, 34);
             tabPage3.Margin = new Padding(4);
             tabPage3.Name = "tabPage3";
@@ -250,7 +243,7 @@
             tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)data_grid_view_courses).EndInit();
             ResumeLayout(false);
-=======
+
             this.tabPage3.Controls.Add(this.dataGridView1);
             this.tabPage3.Controls.Add(this.dropdownSemesters);
             this.tabPage3.Location = new System.Drawing.Point(4, 29);
@@ -300,7 +293,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
->>>>>>> b35ac3ea2c2cf8dad9b69feed38c9dc74530118f
         }
 
         #endregion
@@ -309,7 +301,6 @@
         private TabPage tabPage1;
         private TabPage tabPage2;
         private TabPage tabPage3;
-<<<<<<< HEAD
         private ListBox registration_semester_list;
         private Label registration_instructions;
         private Button view_courses_button;
@@ -327,9 +318,7 @@
         private DataGridViewTextBoxColumn end_time;
         private DataGridViewTextBoxColumn pre_reqs;
         private DataGridViewTextBoxColumn coReqs;
-=======
         private ComboBox dropdownSemesters;
         private DataGridView dataGridView1;
->>>>>>> b35ac3ea2c2cf8dad9b69feed38c9dc74530118f
     }
 }
