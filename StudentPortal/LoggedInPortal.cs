@@ -38,25 +38,13 @@ namespace StudentPortal
                 MessageBox.Show(" " + DateTime.Now.ToLongTimeString() + "  " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private void ShowInitialInfo()
-        {
-            /*
-             * 1. Display current courses’ names and codes with current overall grades for a given semester - use 
-             * stored procedure to pull from view of all registration records (student info + section info + grade)
-               2. Select start and end semester to obtain transcript; button to get transcript (Stored procedure with 
-            start and end semester to get sections’ names and grades)
-             */
-            //GetCurrentClassNames();
-            //GetCurrentClassCodes();
-            //GetCurrentGrades();
-        }
 
         private void populateStudentInformation(String username)
         {
             studentNameInput.Text = getStudentName(username);
             studentNameInput.BorderStyle = BorderStyle.FixedSingle;
             String major = getDeclaredMajor(username);
-            if(major == "")
+            if (major == "")
             {
                 majorInput.Text = "Undeclared";
             }
@@ -65,7 +53,7 @@ namespace StudentPortal
                 majorInput.Text = major;
             }
             String minor = getDeclaredMinor(username);
-            if(minor == "")
+            if (minor == "")
             {
                 minorInput.Text = "Undeclared";
             }
@@ -224,10 +212,29 @@ namespace StudentPortal
                 populateStudentInformation(username);
             }
         }
-        private void SemesterSelected(object sender, EventArgs e)
+        private void OnAddressButtonClick(object sender, EventArgs e)
         {
+            UpdateAddress updateAddress = new UpdateAddress(username);
+            updateAddress.ShowDialog();
 
         }
 
+        private void OnEditMajorClick(object sender, EventArgs e)
+        {
+            UpdateMajor updateMajor = new UpdateMajor(username);
+            updateMajor.ShowDialog();
+        }
+
+        private void UpdatePhoneClick(object sender, EventArgs e)
+        {
+            UpdatePhoneNumber updatePhone = new UpdatePhoneNumber(username);
+            updatePhone.ShowDialog();
+        }
+
+        private void UpdateMinorClick(object sender, EventArgs e)
+        {
+            UpdateMinor updateMinor = new UpdateMinor(username);
+            updateMinor.ShowDialog();
+        }
     }
 }
