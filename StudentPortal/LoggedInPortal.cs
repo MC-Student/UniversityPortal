@@ -43,153 +43,40 @@ namespace StudentPortal
             }
         }
 
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void LoggedInPortal_Load(object sender, EventArgs e)
-        {
-            ShowInitialInfo();
-        }
-
-        private void ShowInitialInfo()
-        {
-            /*
-             * 1. Display current courses’ names and codes with current overall grades for a given semester - use 
-             * stored procedure to pull from view of all registration records (student info + section info + grade)
-               2. Select start and end semester to obtain transcript; button to get transcript (Stored procedure with 
-            start and end semester to get sections’ names and grades)
-             */
-            //GetCurrentClassNames();
-            //GetCurrentClassCodes();
-            //GetCurrentGrades();
-        }
-
-        private void get_courses_button_Click(object sender, EventArgs e)
+        private void DisplayCoursesOnButtonClick(object sender, EventArgs e)
         {
             GetCourses();
 
             // Add a CellClick handler to handle clicks in the button column.
             data_grid_view_courses.CellClick +=
-               new DataGridViewCellEventHandler(dataGridView1_CellContentClick);
+               new DataGridViewCellEventHandler(ReactToButtonColumnClicks);
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void ReactToButtonColumnClicks(object sender, DataGridViewCellEventArgs e)
         {
             var senderGrid = (DataGridView)sender;
 
-            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn &&
-                e.RowIndex >= 0)
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
             {
                 int studentId = 0;
-                //call SP getStudentID to get the username for the user
-                SqlCommand sqlCmd = new SqlCommand("getStudentID", sqlCon);
-                sqlCmd.CommandType = CommandType.StoredProcedure;
-                sqlCmd.Parameters.Add("@username", SqlDbType.VarChar).Value = this.username;
+                studentId = GetStudentID(studentId);
 
-                // Execute the command and get the result
-                using (SqlDataReader reader = sqlCmd.ExecuteReader())
-                {
-                    if (reader.Read())
-                    {
-                        // Access the value returned by the stored procedure
-                        studentId = reader.GetInt32(0);
-                    }
-                }
-
-                // Call SP to get Section ID given the selected title
-                int sectionId = 1;
                 String course = data_grid_view_courses.Rows[e.RowIndex].Cells["course_title"].Value as String;
+                int sectionId = GetSectionID(course);
 
-                SqlCommand cmnd = new SqlCommand("SPGetSectionID", sqlCon);
-                cmnd.CommandType = CommandType.StoredProcedure;
-                cmnd.Parameters.Add("@CourseTitle", SqlDbType.VarChar).Value = course;
-
-                // Execute the command and get the result
-                using (SqlDataReader reader = cmnd.ExecuteReader())
-                {
-                    if (reader.Read())
-                    {
-                        // Access the value returned by the stored procedure
-                        sectionId = reader.GetInt32(0);
-                    }
-                }
-
-                //Call stored procedure to make set enrollment status
-                bool currentlyEnrolled = false;
-                int returnedVal = 0;
-
-                SqlCommand theCommand = new SqlCommand("SP_CurrentEnrollment", sqlCon);
-                theCommand.CommandType = CommandType.StoredProcedure;
-                theCommand.Parameters.Add("@studentId", SqlDbType.Int).Value = studentId;
-                theCommand.Parameters.Add("@sectionId", SqlDbType.Int).Value = sectionId;
-
-                // Execute the command and get the result
-                using (SqlDataReader reader = theCommand.ExecuteReader())
-                {
-                    if (reader.Read())
-                    {
-                        // Access the value returned by the stored procedure
-                        returnedVal = reader.GetInt32(0);
-                    }
-                }
-                if (returnedVal != 0)
-                {
-                    currentlyEnrolled = true;
-                }
-
+                bool currentlyEnrolled = GetEnrollmentStatus(studentId, sectionId) != 0 ? true : false;
 
                 if (senderGrid.Columns[e.ColumnIndex].Name.ToString().Equals("Add Course"))
                 {
+                    int slotsLeft = GetNumOfSlotsLeft(sectionId);
 
-                    //Call SP to get registration limit - if its greater than 0
-                    //AND not currently enrolled then can register
-                    int slotsLeft = 0;
-
-                    SqlCommand command = new SqlCommand("SPGetSlotsLeft", sqlCon);
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.Add("@sectionId", SqlDbType.Int).Value = sectionId;
-
-                    // Execute the command and get the result
-                    using (SqlDataReader reader = cmnd.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            // Access the value returned by the stored procedure
-                            slotsLeft = reader.GetInt32(0);
-                        }
-                    }
                     if (slotsLeft < 1)
                     {
-                        //If cannot register let user know
                         MessageBox.Show("The course is full");
                     }
                     else if (currentlyEnrolled == false)
                     {
-                        //Once can register, call SP to register, let user know that registered
-                        SqlCommand addCourseCmnd = new SqlCommand("SP_InsertRegistration", sqlCon);
-
-                        // Specify that the command is a stored procedure
-                        addCourseCmnd.CommandType = CommandType.StoredProcedure;
-
-                        // Add parameters to the command
-                        addCourseCmnd.Parameters.Add("@SectionId", SqlDbType.Int).Value = sectionId;
-                        addCourseCmnd.Parameters.Add("@StudentId", SqlDbType.Int).Value = studentId;
-
-
-                        try
-                        {
-                            // Execute the stored procedure
-                            addCourseCmnd.ExecuteNonQuery();
-                            MessageBox.Show("Added Course Successfully.");
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("Error Adding Course.");
-                        }
-
-
+                        RegisterStudentForSection(studentId, sectionId);
                     }
                     else
                     {
@@ -199,40 +86,17 @@ namespace StudentPortal
 
                 else if (senderGrid.Columns[e.ColumnIndex].Name.ToString().Equals("Drop Course"))
                 {
-                    //Call SP to make sure that registered for the course 
                     if (currentlyEnrolled)
                     {
-                        //once confirmed that currently enrolled, call SP to drop it, once dropped let user know done
-                        SqlCommand dropCourseCmnd = new SqlCommand("SP_DropCourse", sqlCon);
-
-                        // Specify that the command is a stored procedure
-                        dropCourseCmnd.CommandType = CommandType.StoredProcedure;
-
-                        // Add parameters to the command
-                        dropCourseCmnd.Parameters.Add("@SectionId", SqlDbType.Int).Value = sectionId;
-                        dropCourseCmnd.Parameters.Add("@StudentId", SqlDbType.Int).Value = studentId;
-
-
-                        try
-                        {
-                            // Execute the stored procedure
-                            dropCourseCmnd.ExecuteNonQuery();
-                            MessageBox.Show("Dropped Course Successfully.");
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("Error Dropping Course.");
-                        }
+                        DropStudentFromSection(studentId, sectionId);
                     }
                     else
                     {
-                        MessageBox.Show("Not currently Enrolled, so cannot drop");
+                        MessageBox.Show("Not currently enrolled - cannot drop");
                     }
                 }
-
             }
         }
-
 
         private void GetCourses()
         {
@@ -293,6 +157,125 @@ namespace StudentPortal
             data_grid_view_courses.Visible = true;
 
         }
+
+        private int GetStudentID(int studentId)
+        {
+            //call SP getStudentID to get the username for the user
+            SqlCommand sqlCmd = new SqlCommand("getStudentID", sqlCon);
+            sqlCmd.CommandType = CommandType.StoredProcedure;
+            sqlCmd.Parameters.Add("@username", SqlDbType.VarChar).Value = this.username;
+
+            // Execute the command and get the result
+            using (SqlDataReader reader = sqlCmd.ExecuteReader())
+            {
+                if (reader.Read())
+                {
+                    // Access the value returned by the stored procedure
+                    studentId = reader.GetInt32(0);
+                }
+            }
+
+            return studentId;
+        }
+
+        private int GetSectionID(string course)
+        {
+            int id = 0;
+            SqlCommand cmnd = new SqlCommand("SPGetSectionID", sqlCon);
+            cmnd.CommandType = CommandType.StoredProcedure;
+            cmnd.Parameters.Add("@CourseTitle", SqlDbType.VarChar).Value = course;
+
+            // Execute the command and get the result
+            using (SqlDataReader reader = cmnd.ExecuteReader())
+            {
+                if (reader.Read())
+                {
+                    // Access the value returned by the stored procedure
+                    id = reader.GetInt32(0);
+                }
+            }
+            return id;
+        }
+
+        private int GetEnrollmentStatus(int studentId, int sectionId)
+        {
+            int returnedVal = 0;
+
+            SqlCommand theCommand = new SqlCommand("SP_CurrentEnrollment", sqlCon);
+            theCommand.CommandType = CommandType.StoredProcedure;
+            theCommand.Parameters.Add("@studentId", SqlDbType.Int).Value = studentId;
+            theCommand.Parameters.Add("@sectionId", SqlDbType.Int).Value = sectionId;
+
+            // Execute the command and get the result
+            using (SqlDataReader reader = theCommand.ExecuteReader())
+            {
+                if (reader.Read())
+                {
+                    // Access the value returned by the stored procedure
+                    returnedVal = reader.GetInt32(0);
+                }
+            }
+
+            return returnedVal;
+        }
+
+        private int GetNumOfSlotsLeft(int sectionId)
+        {
+            int slotsLeft = 0;
+
+            SqlCommand command = new SqlCommand("SPGetSlotsLeft", sqlCon);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add("@sectionId", SqlDbType.Int).Value = sectionId;
+
+            // Execute the command and get the result
+            using (SqlDataReader reader = command.ExecuteReader())
+            {
+                if (reader.Read())
+                {
+                    // Access the value returned by the stored procedure
+                    slotsLeft = reader.GetInt32(0);
+                }
+            }
+
+            return slotsLeft;
+        }
+
+        private void RegisterStudentForSection(int studentId, int sectionId)
+        {
+            SqlCommand addCourseCmnd = new SqlCommand("SP_InsertRegistration", sqlCon);
+            addCourseCmnd.CommandType = CommandType.StoredProcedure;
+            addCourseCmnd.Parameters.Add("@SectionId", SqlDbType.Int).Value = sectionId;
+            addCourseCmnd.Parameters.Add("@StudentId", SqlDbType.Int).Value = studentId;
+
+            try
+            {
+                addCourseCmnd.ExecuteNonQuery();
+                MessageBox.Show("Added Course Successfully.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error Adding Course.");
+            }
+        }
+
+        private void DropStudentFromSection(int studentId, int sectionId)
+        {
+            SqlCommand dropCourseCmnd = new SqlCommand("SP_DropCourse", sqlCon);
+            dropCourseCmnd.CommandType = CommandType.StoredProcedure;
+            dropCourseCmnd.Parameters.Add("@SectionId", SqlDbType.Int).Value = sectionId;
+            dropCourseCmnd.Parameters.Add("@StudentId", SqlDbType.Int).Value = studentId;
+
+            try
+            {
+                dropCourseCmnd.ExecuteNonQuery();
+                MessageBox.Show("Dropped Course Successfully.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error Dropping Course.");
+            }
+        }
+
         private void SemesterSelected(object sender, EventArgs e)
         {
 

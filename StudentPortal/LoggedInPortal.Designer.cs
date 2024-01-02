@@ -122,7 +122,7 @@
             get_courses_button.TabIndex = 2;
             get_courses_button.Text = "Get Courses";
             get_courses_button.UseVisualStyleBackColor = true;
-            get_courses_button.Click += get_courses_button_Click;
+            get_courses_button.Click += DisplayCoursesOnButtonClick;
             // 
             // semester_list_seaon
             // 
