@@ -56,15 +56,14 @@
             this.gradeView = new System.Windows.Forms.DataGridView();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.studentPortalTabs.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.coursesView)).BeginInit();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gradesTabSplit)).BeginInit();
             this.gradesTabSplit.Panel1.SuspendLayout();
             this.gradesTabSplit.Panel2.SuspendLayout();
             this.gradesTabSplit.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gradeView)).BeginInit();
-            this.studentPortalTabs.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.coursesView)).BeginInit();
             this.SuspendLayout();
             // 
             // studentPortalTabs
@@ -72,18 +71,13 @@
             this.studentPortalTabs.Controls.Add(this.tabPage1);
             this.studentPortalTabs.Controls.Add(this.tabPage2);
             this.studentPortalTabs.Controls.Add(this.tabPage3);
-            this.studentPortalTabs.Location = new System.Drawing.Point(12, 12);
-            this.studentPortalTabs.Name = "studentPortalTabs";
-            this.studentPortalTabs.SelectedIndex = 0;
-            this.studentPortalTabs.Size = new System.Drawing.Size(776, 426);
-            this.studentPortalTabs.TabIndex = 0;
-            this.studentPortalTabs.Selected += new System.Windows.Forms.TabControlEventHandler(this.InfoTabLoadSelected);
             this.studentPortalTabs.Location = new System.Drawing.Point(14, 14);
             this.studentPortalTabs.Margin = new System.Windows.Forms.Padding(5);
             this.studentPortalTabs.Name = "studentPortalTabs";
             this.studentPortalTabs.SelectedIndex = 0;
             this.studentPortalTabs.Size = new System.Drawing.Size(772, 427);
             this.studentPortalTabs.TabIndex = 0;
+            this.studentPortalTabs.Selected += new System.Windows.Forms.TabControlEventHandler(this.InfoTabLoadSelected);
             // 
             // tabPage1
             // 
@@ -131,6 +125,7 @@
             this.getCoursesButton.TabIndex = 2;
             this.getCoursesButton.Text = "Get Courses";
             this.getCoursesButton.UseVisualStyleBackColor = true;
+            this.getCoursesButton.Click += new System.EventHandler(this.DisplayCoursesOnButtonClick);
             // 
             // seasonList
             // 
@@ -268,8 +263,8 @@
             this.gradesTabSplit.Panel2.Controls.Add(this.gradeViewLabel);
             this.gradesTabSplit.Panel2.Controls.Add(this.dropdownSemesters);
             this.gradesTabSplit.Panel2.Controls.Add(this.gradeView);
-            this.gradesTabSplit.Size = new System.Drawing.Size(762, 387);
-            this.gradesTabSplit.SplitterDistance = 253;
+            this.gradesTabSplit.Size = new System.Drawing.Size(758, 388);
+            this.gradesTabSplit.SplitterDistance = 251;
             this.gradesTabSplit.TabIndex = 5;
             // 
             // transcriptLabel
@@ -372,12 +367,12 @@
             this.gradeView.AllowUserToDeleteRows = false;
             this.gradeView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gradeView.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.gradeView.Location = new System.Drawing.Point(0, 102);
+            this.gradeView.Location = new System.Drawing.Point(0, 103);
             this.gradeView.Name = "gradeView";
             this.gradeView.RowHeadersVisible = false;
             this.gradeView.RowHeadersWidth = 51;
             this.gradeView.RowTemplate.Height = 29;
-            this.gradeView.Size = new System.Drawing.Size(505, 285);
+            this.gradeView.Size = new System.Drawing.Size(503, 285);
             this.gradeView.TabIndex = 1;
             // 
             // saveFileDialog
@@ -390,9 +385,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.studentPortalTabs);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "LoggedInPortal";
             this.Text = "LoggedInPortal";
             this.studentPortalTabs.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.coursesView)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.gradesTabSplit.Panel1.ResumeLayout(false);
             this.gradesTabSplit.Panel1.PerformLayout();
@@ -401,12 +399,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.gradesTabSplit)).EndInit();
             this.gradesTabSplit.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gradeView)).EndInit();
-            this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "LoggedInPortal";
-            this.Text = "LoggedInPortal";
-            this.studentPortalTabs.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.coursesView)).EndInit();
             this.ResumeLayout(false);
 
         }
