@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tab_grades = new System.Windows.Forms.TabControl();
+            this.studentPortalTabs = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.gradesSplit = new System.Windows.Forms.SplitContainer();
+            this.gradesTabSplit = new System.Windows.Forms.SplitContainer();
             this.transcriptLabel = new System.Windows.Forms.Label();
             this.transcriptButton = new System.Windows.Forms.Button();
             this.endLabel = new System.Windows.Forms.Label();
@@ -43,26 +43,26 @@
             this.dropdownSemesters = new System.Windows.Forms.ComboBox();
             this.gradeView = new System.Windows.Forms.DataGridView();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.tab_grades.SuspendLayout();
+            this.studentPortalTabs.SuspendLayout();
             this.tabPage3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gradesSplit)).BeginInit();
-            this.gradesSplit.Panel1.SuspendLayout();
-            this.gradesSplit.Panel2.SuspendLayout();
-            this.gradesSplit.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gradesTabSplit)).BeginInit();
+            this.gradesTabSplit.Panel1.SuspendLayout();
+            this.gradesTabSplit.Panel2.SuspendLayout();
+            this.gradesTabSplit.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gradeView)).BeginInit();
             this.SuspendLayout();
             // 
-            // tab_grades
+            // studentPortalTabs
             // 
-            this.tab_grades.Controls.Add(this.tabPage1);
-            this.tab_grades.Controls.Add(this.tabPage2);
-            this.tab_grades.Controls.Add(this.tabPage3);
-            this.tab_grades.Location = new System.Drawing.Point(12, 12);
-            this.tab_grades.Name = "tab_grades";
-            this.tab_grades.SelectedIndex = 0;
-            this.tab_grades.Size = new System.Drawing.Size(776, 426);
-            this.tab_grades.TabIndex = 0;
-            this.tab_grades.Selected += new System.Windows.Forms.TabControlEventHandler(this.InfoTabLoadSelected);
+            this.studentPortalTabs.Controls.Add(this.tabPage1);
+            this.studentPortalTabs.Controls.Add(this.tabPage2);
+            this.studentPortalTabs.Controls.Add(this.tabPage3);
+            this.studentPortalTabs.Location = new System.Drawing.Point(12, 12);
+            this.studentPortalTabs.Name = "studentPortalTabs";
+            this.studentPortalTabs.SelectedIndex = 0;
+            this.studentPortalTabs.Size = new System.Drawing.Size(776, 426);
+            this.studentPortalTabs.TabIndex = 0;
+            this.studentPortalTabs.Selected += new System.Windows.Forms.TabControlEventHandler(this.InfoTabLoadSelected);
             // 
             // tabPage1
             // 
@@ -86,7 +86,7 @@
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.gradesSplit);
+            this.tabPage3.Controls.Add(this.gradesTabSplit);
             this.tabPage3.Location = new System.Drawing.Point(4, 29);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
@@ -95,29 +95,29 @@
             this.tabPage3.Text = "My Grades";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // gradesSplit
+            // gradesTabSplit
             // 
-            this.gradesSplit.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gradesSplit.Location = new System.Drawing.Point(3, 3);
-            this.gradesSplit.Name = "gradesSplit";
+            this.gradesTabSplit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gradesTabSplit.Location = new System.Drawing.Point(3, 3);
+            this.gradesTabSplit.Name = "gradesTabSplit";
             // 
-            // gradesSplit.Panel1
+            // gradesTabSplit.Panel1
             // 
-            this.gradesSplit.Panel1.Controls.Add(this.transcriptLabel);
-            this.gradesSplit.Panel1.Controls.Add(this.transcriptButton);
-            this.gradesSplit.Panel1.Controls.Add(this.endLabel);
-            this.gradesSplit.Panel1.Controls.Add(this.startLabel);
-            this.gradesSplit.Panel1.Controls.Add(this.endSemList);
-            this.gradesSplit.Panel1.Controls.Add(this.startSemList);
+            this.gradesTabSplit.Panel1.Controls.Add(this.transcriptLabel);
+            this.gradesTabSplit.Panel1.Controls.Add(this.transcriptButton);
+            this.gradesTabSplit.Panel1.Controls.Add(this.endLabel);
+            this.gradesTabSplit.Panel1.Controls.Add(this.startLabel);
+            this.gradesTabSplit.Panel1.Controls.Add(this.endSemList);
+            this.gradesTabSplit.Panel1.Controls.Add(this.startSemList);
             // 
-            // gradesSplit.Panel2
+            // gradesTabSplit.Panel2
             // 
-            this.gradesSplit.Panel2.Controls.Add(this.gradeViewLabel);
-            this.gradesSplit.Panel2.Controls.Add(this.dropdownSemesters);
-            this.gradesSplit.Panel2.Controls.Add(this.gradeView);
-            this.gradesSplit.Size = new System.Drawing.Size(762, 387);
-            this.gradesSplit.SplitterDistance = 253;
-            this.gradesSplit.TabIndex = 5;
+            this.gradesTabSplit.Panel2.Controls.Add(this.gradeViewLabel);
+            this.gradesTabSplit.Panel2.Controls.Add(this.dropdownSemesters);
+            this.gradesTabSplit.Panel2.Controls.Add(this.gradeView);
+            this.gradesTabSplit.Size = new System.Drawing.Size(762, 387);
+            this.gradesTabSplit.SplitterDistance = 253;
+            this.gradesTabSplit.TabIndex = 5;
             // 
             // transcriptLabel
             // 
@@ -236,17 +236,17 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.tab_grades);
+            this.Controls.Add(this.studentPortalTabs);
             this.Name = "LoggedInPortal";
             this.Text = "LoggedInPortal";
-            this.tab_grades.ResumeLayout(false);
+            this.studentPortalTabs.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
-            this.gradesSplit.Panel1.ResumeLayout(false);
-            this.gradesSplit.Panel1.PerformLayout();
-            this.gradesSplit.Panel2.ResumeLayout(false);
-            this.gradesSplit.Panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gradesSplit)).EndInit();
-            this.gradesSplit.ResumeLayout(false);
+            this.gradesTabSplit.Panel1.ResumeLayout(false);
+            this.gradesTabSplit.Panel1.PerformLayout();
+            this.gradesTabSplit.Panel2.ResumeLayout(false);
+            this.gradesTabSplit.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gradesTabSplit)).EndInit();
+            this.gradesTabSplit.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gradeView)).EndInit();
             this.ResumeLayout(false);
 
@@ -254,12 +254,12 @@
 
         #endregion
 
-        private TabControl tab_grades;
+        private TabControl studentPortalTabs;
         private TabPage tabPage1;
         private TabPage tabPage2;
         private TabPage tabPage3;
         private ComboBox dropdownSemesters;
-        private SplitContainer gradesSplit;
+        private SplitContainer gradesTabSplit;
         private DataGridView gradeView;
         private Label gradeViewLabel;
         private Label endLabel;
