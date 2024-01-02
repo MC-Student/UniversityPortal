@@ -44,19 +44,6 @@ namespace StudentPortal
             }
         }
 
-        private void ShowInitialInfo()
-        {
-            /*
-             * 1. Display current courses’ names and codes with current overall grades for a given semester - use 
-             * stored procedure to pull from view of all registration records (student info + section info + grade)
-               2. Select start and end semester to obtain transcript; button to get transcript (Stored procedure with 
-            start and end semester to get sections’ names and grades)
-             */
-            //GetCurrentClassNames();
-            //GetCurrentClassCodes();
-            //GetCurrentGrades();
-        }
-
         private void InfoTabLoadSelected(object sender, TabControlEventArgs e)
         {
             if (e.TabPageIndex == 2)
@@ -70,10 +57,10 @@ namespace StudentPortal
 
         private void SemesterSelected(object sender, EventArgs e)
         {
-            ShowGrades();
+            ShowGradesForSelectedSemester();
         }
 
-        private void ShowGrades() 
+        private void ShowGradesForSelectedSemester() 
         {
             gradeView.Rows.Clear();
             String semester = dropdownSemesters.Text;
@@ -85,9 +72,9 @@ namespace StudentPortal
             DataTable dt = new DataTable();
             SqlCommand myCmd = new SqlCommand("sp_GetSemesterGrades", sqlCon);
             myCmd.CommandType = CommandType.StoredProcedure;
-            myCmd.Parameters.Add("@Season", System.Data.SqlDbType.VarChar).Value = season;
-            myCmd.Parameters.Add("@Year", System.Data.SqlDbType.VarChar).Value = year;
-            myCmd.Parameters.Add("@Username", System.Data.SqlDbType.VarChar).Value = username;
+            myCmd.Parameters.Add("@Season", SqlDbType.VarChar).Value = season;
+            myCmd.Parameters.Add("@Year", SqlDbType.VarChar).Value = year;
+            myCmd.Parameters.Add("@Username", SqlDbType.VarChar).Value = username;
 
             SqlDataAdapter adapter = new SqlDataAdapter(myCmd);
             adapter.Fill(dt);
@@ -114,7 +101,7 @@ namespace StudentPortal
             gradeView.Visible = true;
         }
 
-        private void transcriptButton_Click(object sender, EventArgs e)
+        private void OnTranscriptButtonClick(object sender, EventArgs e)
         {
             String startSem = startSemList.Text;
             String endSem = endSemList.Text;
@@ -128,70 +115,24 @@ namespace StudentPortal
             {
                 DataTable info = GetTranscriptInfo(startSeason, startYear, endSeason, endYear);
 
+                Table2 table = CreateTableWithTranscriptInfo(info);
+
                 Document document = new Document();
                 Page page = new Page();
                 document.Pages.Add(page);
-                Table2 table = new(20, 100, 600, 600);
-                table.Columns.Add(100);
-                table.Columns.Add(100);
-                table.Columns.Add(100);
-                table.Columns.Add(100);
-                int i, j;
-                i = j = 0;
-
-                Row2 headerRow = table.Rows.Add(20, ceTe.DynamicPDF.Font.Helvetica, 12);
-                headerRow.Cells.Add("Semester");
-                headerRow.Cells.Add("Section Code");
-                headerRow.Cells.Add("Section Name");
-                headerRow.Cells.Add("Grade");
-
-                foreach (Cell2 cell in headerRow.Cells) 
-                {
-                    cell.Underline = true;
-                }
-
-                while (i < info.Rows.Count)
-                {
-                    Row2 newRow = table.Rows.Add(20, ceTe.DynamicPDF.Font.Helvetica, 12);
-                    while (j < info.Columns.Count)
-                    {
-                        newRow.Cells.Add(info.Rows[i][j].ToString());
-                        j++;
-                    }
-                    j = 0;
-                    i++;
-                }
-
                 page.Elements.Add(table);
-
-                saveFileDialog.Filter = "PDF Files (*.pdf)|*.pdf";
-                string monthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(DateTime.Now.Month);
-                saveFileDialog.FileName = username + " transcript " + monthName + " " + DateTime.Now.Year.ToString();
+                
+                SetSaveDialogSettings();
 
                 DialogResult result = saveFileDialog.ShowDialog();
 
-                if (result == DialogResult.OK) 
+                if (result == DialogResult.OK)
                 {
                     FileStream fileStream = (FileStream)saveFileDialog.OpenFile();
                     document.Draw(fileStream);
                     fileStream.Close();
-                }               
+                }
             }
-        }
-
-        private DataTable GetTranscriptInfo(string startSeason, string startYear, string endSeason, string endYear)
-        {
-            DataTable dt = new DataTable();
-            SqlCommand myCmd = new SqlCommand("sp_GetTranscriptInfo", sqlCon);
-            myCmd.CommandType = CommandType.StoredProcedure;
-            myCmd.Parameters.Add("@StartSeason", System.Data.SqlDbType.VarChar).Value = startSeason;
-            myCmd.Parameters.Add("@StartYear", System.Data.SqlDbType.VarChar).Value = startYear;
-            myCmd.Parameters.Add("@EndSeason", System.Data.SqlDbType.VarChar).Value = endSeason;
-            myCmd.Parameters.Add("@EndYear", System.Data.SqlDbType.VarChar).Value = endYear;
-            myCmd.Parameters.Add("@Username", System.Data.SqlDbType.VarChar).Value = username;
-            SqlDataAdapter adapter = new SqlDataAdapter(myCmd);
-            adapter.Fill(dt);
-            return dt;
         }
 
         private Boolean RequestValid(string startSeason, string startYear, string endSeason, string endYear)
@@ -213,13 +154,70 @@ namespace StudentPortal
                         result = true;
                     }
                 }
-                else if (start < end) 
+                else if (start < end)
                 {
                     result = true;
                 }
             }
 
             return result;
+        }
+
+        private DataTable GetTranscriptInfo(string startSeason, string startYear, string endSeason, string endYear)
+        {
+            DataTable dt = new DataTable();
+            SqlCommand myCmd = new SqlCommand("sp_GetTranscriptInfo", sqlCon);
+            myCmd.CommandType = CommandType.StoredProcedure;
+            myCmd.Parameters.Add("@StartSeason", System.Data.SqlDbType.VarChar).Value = startSeason;
+            myCmd.Parameters.Add("@StartYear", System.Data.SqlDbType.VarChar).Value = startYear;
+            myCmd.Parameters.Add("@EndSeason", System.Data.SqlDbType.VarChar).Value = endSeason;
+            myCmd.Parameters.Add("@EndYear", System.Data.SqlDbType.VarChar).Value = endYear;
+            myCmd.Parameters.Add("@Username", System.Data.SqlDbType.VarChar).Value = username;
+            SqlDataAdapter adapter = new SqlDataAdapter(myCmd);
+            adapter.Fill(dt);
+            return dt;
+        }
+
+        private Table2 CreateTableWithTranscriptInfo(DataTable info)
+        {
+            Table2 table = new(20, 100, 600, 600);
+            table.Columns.Add(100);
+            table.Columns.Add(100);
+            table.Columns.Add(100);
+            table.Columns.Add(100);
+            int i, j;
+            i = j = 0;
+
+            Row2 headerRow = table.Rows.Add(20, ceTe.DynamicPDF.Font.Helvetica, 12);
+            headerRow.Cells.Add("Semester");
+            headerRow.Cells.Add("Section Code");
+            headerRow.Cells.Add("Section Name");
+            headerRow.Cells.Add("Grade");
+
+            foreach (Cell2 cell in headerRow.Cells)
+            {
+                cell.Underline = true;
+            }
+
+            while (i < info.Rows.Count)
+            {
+                Row2 newRow = table.Rows.Add(20, ceTe.DynamicPDF.Font.Helvetica, 12);
+                while (j < info.Columns.Count)
+                {
+                    newRow.Cells.Add(info.Rows[i][j].ToString());
+                    j++;
+                }
+                j = 0;
+                i++;
+            }
+            return table;
+        }
+
+        private void SetSaveDialogSettings()
+        {
+            saveFileDialog.Filter = "PDF Files (*.pdf)|*.pdf";
+            string monthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(DateTime.Now.Month);
+            saveFileDialog.FileName = username + " transcript " + monthName + " " + DateTime.Now.Year.ToString();
         }
     }
 }

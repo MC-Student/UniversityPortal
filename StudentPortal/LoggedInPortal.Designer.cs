@@ -137,7 +137,7 @@
             this.transcriptButton.TabIndex = 5;
             this.transcriptButton.Text = "Get Transcript";
             this.transcriptButton.UseVisualStyleBackColor = true;
-            this.transcriptButton.Click += new System.EventHandler(this.transcriptButton_Click);
+            this.transcriptButton.Click += new System.EventHandler(this.OnTranscriptButtonClick);
             // 
             // endLabel
             // 
