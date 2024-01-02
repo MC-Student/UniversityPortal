@@ -30,6 +30,28 @@
         {
             this.studentPortalTabs = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.studentNameInput = new System.Windows.Forms.Label();
+            this.statusInput = new System.Windows.Forms.Label();
+            this.minorInput = new System.Windows.Forms.Label();
+            this.numberInput = new System.Windows.Forms.Label();
+            this.DOBInput = new System.Windows.Forms.Label();
+            this.emailInput = new System.Windows.Forms.Label();
+            this.majorInput = new System.Windows.Forms.Label();
+            this.addressInput = new System.Windows.Forms.Label();
+            this.honorInput = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.honorsCheck = new System.Windows.Forms.CheckBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.yearList = new System.Windows.Forms.ListBox();
             this.getCoursesButton = new System.Windows.Forms.Button();
@@ -56,6 +78,7 @@
             this.gradeView = new System.Windows.Forms.DataGridView();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.studentPortalTabs.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.coursesView)).BeginInit();
             this.tabPage3.SuspendLayout();
@@ -81,14 +104,267 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Location = new System.Drawing.Point(4, 29);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(5);
+            this.tabPage1.Controls.Add(honorsCheck);
+            this.tabPage1.Controls.Add(honorInput);
+            this.tabPage1.Controls.Add(button4);
+            this.tabPage1.Controls.Add(button3);
+            this.tabPage1.Controls.Add(button2);
+            this.tabPage1.Controls.Add(button1);
+            this.tabPage1.Controls.Add(addressInput);
+            this.tabPage1.Controls.Add(statusInput);
+            this.tabPage1.Controls.Add(minorInput);
+            this.tabPage1.Controls.Add(numberInput);
+            this.tabPage1.Controls.Add(DOBInput);
+            this.tabPage1.Controls.Add(emailInput);
+            this.tabPage1.Controls.Add(majorInput);
+            this.tabPage1.Controls.Add(studentNameInput);
+            this.tabPage1.Controls.Add(label8);
+            this.tabPage1.Controls.Add(label7);
+            this.tabPage1.Controls.Add(label6);
+            this.tabPage1.Controls.Add(label5);
+            this.tabPage1.Controls.Add(label4);
+            this.tabPage1.Controls.Add(label3);
+            this.tabPage1.Controls.Add(label2);
+            this.tabPage1.Controls.Add(label1);
+            this.tabPage1.Location = new Point(4, 24);
+            this.tabPage1.Margin = new Padding(3, 2, 3, 2);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(764, 394);
+            this.tabPage1.Padding = new Padding(3, 2, 3, 2);
+            this.tabPage1.Size = new Size(680, 292);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "My Information";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // honorsCheck
+            // 
+            this.honorsCheck.AutoSize = true;
+            this.honorsCheck.Location = new Point(183, 259);
+            this.honorsCheck.Margin = new Padding(3, 2, 3, 2);
+            this.honorsCheck.Name = "honorsCheck";
+            this.honorsCheck.Size = new Size(15, 14);
+            this.honorsCheck.TabIndex = 29;
+            this.honorsCheck.UseVisualStyleBackColor = true;
+            // 
+            // honorInput
+            // 
+            this.honorInput.AutoSize = true;
+            this.honorInput.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            this.honorInput.Location = new Point(21, 253);
+            this.honorInput.Name = "honorInput";
+            this.honorInput.Size = new Size(118, 21);
+            this.honorInput.TabIndex = 28;
+            this.honorInput.Text = "Honors Student";
+            // 
+            // button4
+            // 
+            this.button4.Location = new Point(484, 132);
+            this.button4.Margin = new Padding(3, 2, 3, 2);
+            this.button4.Name = "button4";
+            this.button4.Size = new Size(66, 21);
+            this.button4.TabIndex = 27;
+            this.button4.Text = "Edit";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += UpdatePhoneClick;
+            // 
+            // button3
+            // 
+            this.button3.Location = new Point(484, 193);
+            this.button3.Margin = new Padding(3, 2, 3, 2);
+            this.button3.Name = "button3";
+            this.button3.Size = new Size(66, 23);
+            this.button3.TabIndex = 26;
+            this.button3.Text = "Edit";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += OnAddressButtonClick;
+            // 
+            // button2
+            // 
+            this.button2.Location = new Point(183, 132);
+            this.button2.Margin = new Padding(3, 2, 3, 2);
+            this.button2.Name = "button2";
+            this.button2.Size = new Size(66, 21);
+            this.button2.TabIndex = 25;
+            this.button2.Text = "Edit";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += UpdateMinorClick;
+            // 
+            // button1
+            // 
+            this.button1.Location = new Point(183, 69);
+            this.button1.Margin = new Padding(3, 2, 3, 2);
+            this.button1.Name = "button1";
+            this.button1.Size = new Size(66, 20);
+            this.button1.TabIndex = 24;
+            this.button1.Text = "Edit";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += OnEditMajorClick;
+            // 
+            // addressInput
+            // 
+            this.addressInput.AutoSize = true;
+            this.addressInput.BackColor = Color.Transparent;
+            this.addressInput.BorderStyle = BorderStyle.FixedSingle;
+            this.addressInput.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            this.addressInput.Location = new Point(322, 217);
+            this.addressInput.Name = "addressInput";
+            this.addressInput.Size = new Size(2, 23);
+            this.addressInput.TabIndex = 23;
+            // 
+            // statusInput
+            // 
+            this.statusInput.AutoSize = true;
+            this.statusInput.BackColor = Color.Transparent;
+            this.statusInput.BorderStyle = BorderStyle.FixedSingle;
+            this.statusInput.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            this.statusInput.Location = new Point(27, 217);
+            this.statusInput.Name = "statusInput";
+            this.statusInput.Size = new Size(2, 23);
+            this.statusInput.TabIndex = 22;
+            // 
+            // minorInput
+            // 
+            this.minorInput.AutoSize = true;
+            this.minorInput.BackColor = Color.Transparent;
+            this.minorInput.BorderStyle = BorderStyle.FixedSingle;
+            this.minorInput.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            this.minorInput.Location = new Point(27, 157);
+            this.minorInput.Name = "minorInput";
+            this.minorInput.Size = new Size(2, 23);
+            this.minorInput.TabIndex = 21;
+            // 
+            // numberInput
+            // 
+            this.numberInput.AutoSize = true;
+            this.numberInput.BackColor = Color.Transparent;
+            this.numberInput.BorderStyle = BorderStyle.FixedSingle;
+            this.numberInput.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            this.numberInput.Location = new Point(322, 157);
+            this.numberInput.Name = "numberInput";
+            this.numberInput.Size = new Size(2, 23);
+            this.numberInput.TabIndex = 20;
+            // 
+            // DOBInput
+            // 
+            this.DOBInput.AutoSize = true;
+            this.DOBInput.BackColor = Color.Transparent;
+            this.DOBInput.BorderStyle = BorderStyle.FixedSingle;
+            this.DOBInput.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            this.DOBInput.Location = new Point(322, 32);
+            this.DOBInput.Name = "DOBInput";
+            this.DOBInput.Size = new Size(2, 23);
+            this.DOBInput.TabIndex = 19;
+            // 
+            // emailInput
+            // 
+            this.emailInput.AutoSize = true;
+            this.emailInput.BackColor = Color.Transparent;
+            this.emailInput.BorderStyle = BorderStyle.FixedSingle;
+            this.emailInput.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            this.emailInput.Location = new Point(322, 100);
+            this.emailInput.Name = "emailInput";
+            this.emailInput.Size = new Size(2, 23);
+            this.emailInput.TabIndex = 18;
+            // 
+            // majorInput
+            // 
+            this.majorInput.AutoSize = true;
+            this.majorInput.BackColor = Color.Transparent;
+            this.majorInput.BorderStyle = BorderStyle.FixedSingle;
+            this.majorInput.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            this.majorInput.Location = new Point(27, 100);
+            this.majorInput.Name = "majorInput";
+            this.majorInput.Size = new Size(2, 23);
+            this.majorInput.TabIndex = 17;
+            // 
+            // studentNameInput
+            // 
+            this.studentNameInput.AutoSize = true;
+            this.studentNameInput.BackColor = Color.Transparent;
+            this.studentNameInput.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            this.studentNameInput.Location = new Point(29, 17);
+            this.studentNameInput.Name = "studentNameInput";
+            this.studentNameInput.Size = new Size(0, 21);
+            this.studentNameInput.TabIndex = 16;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            this.label8.Location = new Point(312, 192);
+            this.label8.Name = "label8";
+            this.label8.Size = new Size(66, 21);
+            this.label8.TabIndex = 11;
+            this.label8.Text = "Address";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            this.label7.Location = new Point(312, 132);
+            this.label7.Name = "label7";
+            this.label7.Size = new Size(116, 21);
+            this.label7.TabIndex = 10;
+            this.label7.Text = "Phone Number";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            this.label6.Location = new Point(312, 69);
+            this.label6.Name = "label6";
+            this.label6.Size = new Size(99, 21);
+            this.label6.TabIndex = 9;
+            this.label6.Text = "School Email";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            this.label5.Location = new Point(312, 2);
+            this.label5.Name = "label5";
+            this.label5.Size = new Size(68, 21);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "Birthday";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            this.label4.Location = new Point(20, 191);
+            this.label4.Name = "label4";
+            this.label4.Size = new Size(109, 21);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "Student Status";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            this.label3.Location = new Point(20, 132);
+            this.label3.Name = "label3";
+            this.label3.Size = new Size(117, 21);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Declared Minor";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            this.label2.Location = new Point(20, 69);
+            this.label2.Name = "label2";
+            this.label2.Size = new Size(116, 21);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Declared Major";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            this.label1.Location = new Point(21, 2);
+            this.label1.Name = "label1";
+            this.label1.Size = new Size(109, 21);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Student Name";
             // 
             // tabPage2
             // 
@@ -389,6 +665,9 @@
             this.Name = "LoggedInPortal";
             this.Text = "LoggedInPortal";
             this.studentPortalTabs.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            //come back here
+            //this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.coursesView)).EndInit();
             this.tabPage3.ResumeLayout(false);
@@ -400,7 +679,6 @@
             this.gradesTabSplit.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gradeView)).EndInit();
             this.ResumeLayout(false);
-
         }
 
         #endregion
@@ -409,6 +687,28 @@
         private TabPage tabPage1;
         private TabPage tabPage2;
         private TabPage tabPage3;
+        private Label label1;
+        private Label label2;
+        private Label label3;
+        private Label label8;
+        private Label label7;
+        private Label label6;
+        private Label label5;
+        private Label label4;
+        private Label studentNameInput;
+        private Label statusInput;
+        private Label minorInput;
+        private Label numberInput;
+        private Label DOBInput;
+        private Label emailInput;
+        private Label majorInput;
+        private Label addressInput;
+        private Button button4;
+        private Button button3;
+        private Button button2;
+        private Button button1;
+        private CheckBox honorsCheck;
+        private Label honorInput;
         private ComboBox dropdownSemesters;
         private SplitContainer gradesTabSplit;
         private DataGridView gradeView;
