@@ -692,15 +692,15 @@
             // 
             this.saveFileDialog.Title = "Save transcript as...";
             // 
-            // LoggedInPortal
+            // LoggedInStudentPortal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.studentPortalTabs);
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "LoggedInPortal";
-            this.Text = "LoggedInPortal";
+            this.Name = "LoggedInStudentPortal";
+            this.Text = "My Student Portal";
             this.studentPortalTabs.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();

@@ -42,7 +42,7 @@
             this.LogInButton.TabIndex = 1;
             this.LogInButton.Text = "Student Log In";
             this.LogInButton.UseVisualStyleBackColor = true;
-            this.LogInButton.Click += new System.EventHandler(this.LogInButton_Click);
+            this.LogInButton.Click += new System.EventHandler(this.StudentLogInButton_Clicked);
             // 
             // portal_title
             // 
@@ -62,6 +62,7 @@
             this.instructorButton.TabIndex = 3;
             this.instructorButton.Text = "Instructor Log In";
             this.instructorButton.UseVisualStyleBackColor = true;
+            this.instructorButton.Click += new System.EventHandler(this.InstLogInButton_Clicked);
             // 
             // adminButton
             // 
@@ -71,6 +72,7 @@
             this.adminButton.TabIndex = 4;
             this.adminButton.Text = "Administrator Log In";
             this.adminButton.UseVisualStyleBackColor = true;
+            this.adminButton.Click += new System.EventHandler(this.AdminLogInButton_Clicked);
             // 
             // Portal
             // 
