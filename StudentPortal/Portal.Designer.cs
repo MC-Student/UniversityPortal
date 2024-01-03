@@ -30,11 +30,13 @@
         {
             this.LogInButton = new System.Windows.Forms.Button();
             this.portal_title = new System.Windows.Forms.Label();
+            this.instructorButton = new System.Windows.Forms.Button();
+            this.adminButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // LogInButton
             // 
-            this.LogInButton.Location = new System.Drawing.Point(338, 177);
+            this.LogInButton.Location = new System.Drawing.Point(146, 202);
             this.LogInButton.Name = "LogInButton";
             this.LogInButton.Size = new System.Drawing.Size(120, 29);
             this.LogInButton.TabIndex = 1;
@@ -52,11 +54,31 @@
             this.portal_title.TabIndex = 2;
             this.portal_title.Text = "University Portal";
             // 
+            // instructorButton
+            // 
+            this.instructorButton.Location = new System.Drawing.Point(333, 202);
+            this.instructorButton.Name = "instructorButton";
+            this.instructorButton.Size = new System.Drawing.Size(134, 29);
+            this.instructorButton.TabIndex = 3;
+            this.instructorButton.Text = "Instructor Log In";
+            this.instructorButton.UseVisualStyleBackColor = true;
+            // 
+            // adminButton
+            // 
+            this.adminButton.Location = new System.Drawing.Point(535, 202);
+            this.adminButton.Name = "adminButton";
+            this.adminButton.Size = new System.Drawing.Size(157, 29);
+            this.adminButton.TabIndex = 4;
+            this.adminButton.Text = "Administrator Log In";
+            this.adminButton.UseVisualStyleBackColor = true;
+            // 
             // Portal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.adminButton);
+            this.Controls.Add(this.instructorButton);
             this.Controls.Add(this.portal_title);
             this.Controls.Add(this.LogInButton);
             this.Name = "Portal";
@@ -69,5 +91,7 @@
         #endregion
         private Button LogInButton;
         private Label portal_title;
+        private Button instructorButton;
+        private Button adminButton;
     }
 }
