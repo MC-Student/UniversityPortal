@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.ApplicationServices;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,23 +9,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace StudentPortal
 {
-    public partial class UpdateMajor : Form
+    public partial class UpdateMinor : Form
     {
-        private String Username;
+        private string Username;
         private SqlConnection sqlCon;
-        public UpdateMajor(String user)
+        public UpdateMinor(string user)
         {
             this.Username = user;
             InitializeComponent();
             CreateConnection();
         }
-
         private void CreateConnection()
+
         {
             try
             {
@@ -40,30 +39,31 @@ namespace StudentPortal
                 MessageBox.Show(" " + DateTime.Now.ToLongTimeString() + "  " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private void OkButtonClick(object sender, EventArgs e)
+
+
+        private void OKButtonClicked(object sender, EventArgs e)
         {
-            String major = comboBoxMajors.Text;
-            UpdateStudentMajor(major);
+            string minor = comboBoxMinors.Text;
+            UpdateStudentMinor(minor);
             this.Close();
         }
 
-        private void UpdateStudentMajor(string major)
+        private void UpdateStudentMinor(string minor)
         {
-            SqlCommand sqlCmd = new SqlCommand("sp_UpdateMajor", sqlCon);
+            SqlCommand sqlCmd = new SqlCommand("sp_UpdateMinor", sqlCon);
             sqlCmd.CommandType = CommandType.StoredProcedure;
             sqlCmd.Parameters.Add("@username", SqlDbType.VarChar).Value = Username;
-            sqlCmd.Parameters.Add("@major", SqlDbType.VarChar).Value = major;
+            sqlCmd.Parameters.Add("@minor", SqlDbType.VarChar).Value = minor;
             sqlCmd.ExecuteNonQuery();
         }
 
-        private void UpdateMajorLoad(object sender, EventArgs e)
+        private void UpdateMinorLoad(object sender, EventArgs e)
         {
-            DisplayMajors();
+            DisplayMinors();
         }
-
-        private void DisplayMajors()
+        private void DisplayMinors()
         {
-            SqlCommand sqlCmd = new SqlCommand("spGetMajorList", sqlCon);
+            SqlCommand sqlCmd = new SqlCommand("spGetMinorList", sqlCon);
             sqlCmd.CommandType = CommandType.StoredProcedure;
             sqlCmd.ExecuteNonQuery();
             DataTable List = new DataTable();
@@ -72,7 +72,7 @@ namespace StudentPortal
 
             foreach (DataRow Row in List.Rows)
             {
-                comboBoxMajors.Items.Add(Row.ItemArray.GetValue(0).ToString());
+                comboBoxMinors.Items.Add(Row.ItemArray.GetValue(0).ToString());
             }
         }
     }

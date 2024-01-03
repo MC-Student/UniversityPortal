@@ -19,17 +19,19 @@ using ceTe.DynamicPDF.PageElements;
 
 namespace StudentPortal
 {
-    public partial class LoggedInPortal : Form
+    public partial class LoggedInStudentPortal : Form
     {
-        private String username;
+        private string username;
         private SqlConnection sqlCon;
-        public LoggedInPortal(string user)
+        public LoggedInStudentPortal(string user)
         {
             InitializeComponent();
             this.username = user;
             CreateConnection();
+            PopulateStudentInformation(username);
         }
 
+        #region methods called when portal is displayed for first time
         private void CreateConnection()
         {
             try
@@ -46,11 +48,12 @@ namespace StudentPortal
                 MessageBox.Show(" " + DateTime.Now.ToLongTimeString() + "  " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private void populateStudentInformation(String username)
+
+        private void PopulateStudentInformation(string username)
         {
-            studentNameInput.Text = getStudentName(username);
+            studentNameInput.Text = GetStudentName(username);
             studentNameInput.BorderStyle = BorderStyle.FixedSingle;
-            String major = getDeclaredMajor(username);
+            string major = GetStudentMajor(username);
             if (major == "")
             {
                 majorInput.Text = "Undeclared";
@@ -59,7 +62,7 @@ namespace StudentPortal
             {
                 majorInput.Text = major;
             }
-            String minor = getDeclaredMinor(username);
+            string minor = GetStudentMinor(username);
             if (minor == "")
             {
                 minorInput.Text = "Undeclared";
@@ -68,8 +71,8 @@ namespace StudentPortal
             {
                 minorInput.Text = minor;
             }
-            DOBInput.Text = getDOB(username);
-            String status = getHonorStatus(username);
+            DOBInput.Text = GetStudentDOB(username);
+            string status = GetStudentHonorStatus(username);
             if (status == "1")
             {
                 honorsCheck.Checked = true;
@@ -78,11 +81,11 @@ namespace StudentPortal
             {
                 honorsCheck.Checked = false;
             }
-            String email = getStudentEmail(username);
+            string email = GetStudentEmail(username);
             emailInput.Text = email + "@student.edu";
-            statusInput.Text = getStudentStatus(username);
+            statusInput.Text = GetStudentYearStatus(username);
 
-            String address = getAddress(username);
+            string address = GetStudentAddress(username);
             if (address == "")
             {
                 addressInput.Text = "N/A";
@@ -92,7 +95,7 @@ namespace StudentPortal
                 addressInput.Text = address;
             }
 
-            String number = getNumber(username);
+            string number = GetStudentPhone(username);
             if (number == "")
             {
                 numberInput.Text = "N/A";
@@ -103,8 +106,10 @@ namespace StudentPortal
             }
 
         }
+        #endregion
 
-        private String getStudentName(String user)
+        #region methods for tabPage1 - My Information
+        private string GetStudentName(string user)
         {
             SqlCommand sqlCmd = new SqlCommand("sp_GetStudentName", sqlCon);
             sqlCmd.CommandType = CommandType.StoredProcedure;
@@ -112,11 +117,59 @@ namespace StudentPortal
             sqlCmd.Parameters.Add("@name", SqlDbType.VarChar, 70);
             sqlCmd.Parameters["@name"].Direction = ParameterDirection.Output;
             sqlCmd.ExecuteNonQuery();
-            String studentName = sqlCmd.Parameters["@name"].Value.ToString();
+            string studentName = sqlCmd.Parameters["@name"].Value.ToString();
             return studentName;
         }
 
-        private String getDeclaredMajor(String user)
+        private string GetStudentDOB(string user)
+        {
+            SqlCommand sqlCmd = new SqlCommand("sp_GetStudentDOB", sqlCon);
+            sqlCmd.CommandType = CommandType.StoredProcedure;
+            sqlCmd.Parameters.Add("@username", SqlDbType.VarChar).Value = user;
+            sqlCmd.Parameters.Add("@dob", SqlDbType.VarChar, 70);
+            sqlCmd.Parameters["@dob"].Direction = ParameterDirection.Output;
+            sqlCmd.ExecuteNonQuery();
+            string dobResult = sqlCmd.Parameters["@dob"].Value.ToString();
+            return dobResult;
+        }
+
+        private string GetStudentEmail(string user)
+        {
+            SqlCommand sqlCmd = new SqlCommand("sp_GetStudentEmail", sqlCon);
+            sqlCmd.CommandType = CommandType.StoredProcedure;
+            sqlCmd.Parameters.Add("@username", SqlDbType.VarChar).Value = user;
+            sqlCmd.Parameters.Add("@email", SqlDbType.VarChar, 70);
+            sqlCmd.Parameters["@email"].Direction = ParameterDirection.Output;
+            sqlCmd.ExecuteNonQuery();
+            string email = sqlCmd.Parameters["@email"].Value.ToString();
+            return email;
+        }
+
+        private string GetStudentAddress(string user)
+        {
+            SqlCommand sqlCmd = new SqlCommand("sp_GetStudentAddress", sqlCon);
+            sqlCmd.CommandType = CommandType.StoredProcedure;
+            sqlCmd.Parameters.Add("@username", SqlDbType.VarChar).Value = user;
+            sqlCmd.Parameters.Add("@address", SqlDbType.VarChar, 70);
+            sqlCmd.Parameters["@address"].Direction = ParameterDirection.Output;
+            sqlCmd.ExecuteNonQuery();
+            string address = sqlCmd.Parameters["@address"].Value.ToString();
+            return address;
+        }
+
+        private string GetStudentPhone(string user)
+        {
+            SqlCommand sqlCmd = new SqlCommand("sp_GetStudentNumber", sqlCon);
+            sqlCmd.CommandType = CommandType.StoredProcedure;
+            sqlCmd.Parameters.Add("@username", SqlDbType.VarChar).Value = user;
+            sqlCmd.Parameters.Add("@number", SqlDbType.VarChar, 70);
+            sqlCmd.Parameters["@number"].Direction = ParameterDirection.Output;
+            sqlCmd.ExecuteNonQuery();
+            string studentnumber = sqlCmd.Parameters["@number"].Value.ToString();
+            return studentnumber;
+        }
+
+        private string GetStudentMajor(string user)
         {
             SqlCommand sqlCmd = new SqlCommand("sp_GetStudentMajor", sqlCon);
             sqlCmd.CommandType = CommandType.StoredProcedure;
@@ -124,25 +177,117 @@ namespace StudentPortal
             sqlCmd.Parameters.Add("@major", SqlDbType.VarChar, 70);
             sqlCmd.Parameters["@major"].Direction = ParameterDirection.Output;
             sqlCmd.ExecuteNonQuery();
-            String studentMajor = sqlCmd.Parameters["@major"].Value.ToString();
+            string studentMajor = sqlCmd.Parameters["@major"].Value.ToString();
             return studentMajor;
         }
 
-        private void InfoTabLoadSelected(object sender, TabControlEventArgs e)
+        private string GetStudentMinor(string user)
         {
-            if (e.TabPageIndex == 0)
-            {
-                populateStudentInformation(username);
-            }
-            if (e.TabPageIndex == 2)
-            {
-                gradeView.Columns.Add("col_sectionCode", "Section Code");
-                gradeView.Columns.Add("col_sectionName", "Section Name");
-                gradeView.Columns.Add("col_sectionGrade", "Grade");
-                gradeView.Visible = true;
-            } 
+            SqlCommand sqlCmd = new SqlCommand("sp_GetStudentMinor", sqlCon);
+            sqlCmd.CommandType = CommandType.StoredProcedure;
+            sqlCmd.Parameters.Add("@username", SqlDbType.VarChar).Value = user;
+            sqlCmd.Parameters.Add("@minor", SqlDbType.VarChar, 70);
+            sqlCmd.Parameters["@minor"].Direction = ParameterDirection.Output;
+            sqlCmd.ExecuteNonQuery();
+            string studentMinor = sqlCmd.Parameters["@minor"].Value.ToString();
+            return studentMinor;
         }
 
+        private string GetStudentHonorStatus(string user)
+        {
+            SqlCommand sqlCmd = new SqlCommand("sp_GetStudentHonorStatus", sqlCon);
+            sqlCmd.CommandType = CommandType.StoredProcedure;
+            sqlCmd.Parameters.Add("@username", SqlDbType.VarChar).Value = user;
+            sqlCmd.Parameters.Add("@honors", SqlDbType.VarChar, 70);
+            sqlCmd.Parameters["@honors"].Direction = ParameterDirection.Output;
+            sqlCmd.ExecuteNonQuery();
+            string honorStatus = sqlCmd.Parameters["@honors"].Value.ToString();
+            return honorStatus;
+        }
+
+        private string GetStudentYearStatus(string user)
+        {
+            SqlCommand sqlCmd = new SqlCommand("sp_GetStudentStatus", sqlCon);
+            sqlCmd.CommandType = CommandType.StoredProcedure;
+            sqlCmd.Parameters.Add("@username", SqlDbType.VarChar).Value = user;
+            sqlCmd.Parameters.Add("@status", SqlDbType.VarChar, 70);
+            sqlCmd.Parameters["@status"].Direction = ParameterDirection.Output;
+            sqlCmd.ExecuteNonQuery();
+            string status = sqlCmd.Parameters["@status"].Value.ToString();
+            return status;
+        }
+
+        private void OnEditAddressClick(object sender, EventArgs e)
+        {
+            UpdateAddress updateAddress = new UpdateAddress(username);
+            updateAddress.ShowDialog();
+            addressInput.Visible = false;
+        }
+
+        private void OnEditMajorClick(object sender, EventArgs e)
+        {
+            UpdateMajor updateMajor = new UpdateMajor(username);
+            updateMajor.ShowDialog();
+            majorInput.Visible = false;
+        }
+
+        private void OnEditPhoneClick(object sender, EventArgs e)
+        {
+            UpdatePhoneNumber updatePhone = new UpdatePhoneNumber(username);
+            updatePhone.ShowDialog();
+            numberInput.Visible = false;
+        }
+
+        private void OnEditMinorClick(object sender, EventArgs e)
+        {
+            UpdateMinor updateMinor = new UpdateMinor(username);
+            updateMinor.ShowDialog();
+            minorInput.Visible = false;
+        }
+
+        private void RefreshMajor(object sender, EventArgs e)
+        {
+            majorInput.Text = GetStudentMajor(username);
+            if (majorInput.Text == string.Empty)
+            {
+                majorInput.Text = "Undeclared";
+            }
+            majorInput.Visible = true;
+        }
+
+        private void RefreshMinor(object sender, EventArgs e)
+        {
+            minorInput.Text = GetStudentMinor(username);
+            if (minorInput.Text == string.Empty)
+            {
+                minorInput.Text = "Undeclared";
+            }
+            minorInput.Visible = true;
+        }
+
+        private void RefreshPhoneNumber(object sender, EventArgs e)
+        {
+            numberInput.Text = GetStudentPhone(username);
+            if (numberInput.Text == string.Empty)
+            {
+                numberInput.Text = "not provided";
+            }
+            numberInput.Visible = true;
+        }
+
+        private void RefreshAddress(object sender, EventArgs e)
+        {
+            addressInput.Text = GetStudentAddress(username);
+            if (addressInput.Text == string.Empty)
+            {
+                addressInput.Text = "not provided";
+            }
+            addressInput.Visible = true;
+        }
+
+        #endregion
+
+        #region methods for tabPage2 - My Courses
         private void DisplayCoursesOnButtonClick(object sender, EventArgs e)
         {
             GetCourses();
@@ -152,57 +297,11 @@ namespace StudentPortal
                new DataGridViewCellEventHandler(ReactToButtonColumnClicks);
         }
 
-        private void ReactToButtonColumnClicks(object sender, DataGridViewCellEventArgs e)
-        {
-            var senderGrid = (DataGridView)sender;
-
-            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
-            {
-                int studentId = 0;
-                studentId = GetStudentID(studentId);
-
-                String course = coursesView.Rows[e.RowIndex].Cells["course_title"].Value as String;
-                int sectionId = GetSectionID(course);
-
-                bool currentlyEnrolled = GetEnrollmentStatus(studentId, sectionId) != 0 ? true : false;
-
-                if (senderGrid.Columns[e.ColumnIndex].Name.ToString().Equals("Add Course"))
-                {
-                    int slotsLeft = GetNumOfSlotsLeft(sectionId);
-
-                    if (slotsLeft < 1)
-                    {
-                        MessageBox.Show("The course is full");
-                    }
-                    else if (currentlyEnrolled == false)
-                    {
-                        RegisterStudentForSection(studentId, sectionId);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Already enrolled in this course");
-                    }
-                }
-
-                else if (senderGrid.Columns[e.ColumnIndex].Name.ToString().Equals("Drop Course"))
-                {
-                    if (currentlyEnrolled)
-                    {
-                        DropStudentFromSection(studentId, sectionId);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Not currently enrolled - cannot drop");
-                    }
-                }
-            }
-        }
-
         private void GetCourses()
         {
             coursesView.Rows.Clear();
-            String season = seasonList.SelectedItem.ToString();
-            String year = yearList.SelectedItem.ToString();
+            string season = seasonList.SelectedItem.ToString();
+            string year = yearList.SelectedItem.ToString();
             coursesView.AutoGenerateColumns = true;
 
             //get the course info using SP given a specific semester and fill data grid view
@@ -255,6 +354,52 @@ namespace StudentPortal
 
             coursesView.Visible = true;
 
+        }
+
+        private void ReactToButtonColumnClicks(object sender, DataGridViewCellEventArgs e)
+        {
+            var senderGrid = (DataGridView)sender;
+
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
+            {
+                int studentId = 0;
+                studentId = GetStudentID(studentId);
+
+                string course = coursesView.Rows[e.RowIndex].Cells["course_title"].Value as string;
+                int sectionId = GetSectionID(course);
+
+                bool currentlyEnrolled = GetEnrollmentStatus(studentId, sectionId) != 0 ? true : false;
+
+                if (senderGrid.Columns[e.ColumnIndex].Name.ToString().Equals("Add Course"))
+                {
+                    int slotsLeft = GetNumOfSlotsLeft(sectionId);
+
+                    if (slotsLeft < 1)
+                    {
+                        MessageBox.Show("The course is full");
+                    }
+                    else if (currentlyEnrolled == false)
+                    {
+                        RegisterStudentForSection(studentId, sectionId);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Already enrolled in this course");
+                    }
+                }
+
+                else if (senderGrid.Columns[e.ColumnIndex].Name.ToString().Equals("Drop Course"))
+                {
+                    if (currentlyEnrolled)
+                    {
+                        DropStudentFromSection(studentId, sectionId);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Not currently enrolled - cannot drop");
+                    }
+                }
+            }
         }
 
         private int GetStudentID(int studentId)
@@ -375,112 +520,9 @@ namespace StudentPortal
             }
         }
 
-        private String getDeclaredMinor(String user)
-        {
-            SqlCommand sqlCmd = new SqlCommand("sp_GetStudentMinor", sqlCon);
-            sqlCmd.CommandType = CommandType.StoredProcedure;
-            sqlCmd.Parameters.Add("@username", SqlDbType.VarChar).Value = user;
-            sqlCmd.Parameters.Add("@minor", SqlDbType.VarChar, 70);
-            sqlCmd.Parameters["@minor"].Direction = ParameterDirection.Output;
-            sqlCmd.ExecuteNonQuery();
-            String studentMinor = sqlCmd.Parameters["@minor"].Value.ToString();
-            return studentMinor;
-        }
+        #endregion
 
-        private String getHonorStatus(String user)
-        {
-            SqlCommand sqlCmd = new SqlCommand("sp_GetStudentHonorStatus", sqlCon);
-            sqlCmd.CommandType = CommandType.StoredProcedure;
-            sqlCmd.Parameters.Add("@username", SqlDbType.VarChar).Value = user;
-            sqlCmd.Parameters.Add("@honors", SqlDbType.VarChar, 70);
-            sqlCmd.Parameters["@honors"].Direction = ParameterDirection.Output;
-            sqlCmd.ExecuteNonQuery();
-            String honorStatus = sqlCmd.Parameters["@honors"].Value.ToString();
-            return honorStatus;
-        }
-        private String getDOB(String user)
-        {
-            SqlCommand sqlCmd = new SqlCommand("sp_GetStudentDOB", sqlCon);
-            sqlCmd.CommandType = CommandType.StoredProcedure;
-            sqlCmd.Parameters.Add("@username", SqlDbType.VarChar).Value = user;
-            sqlCmd.Parameters.Add("@dob", SqlDbType.VarChar, 70);
-            sqlCmd.Parameters["@dob"].Direction = ParameterDirection.Output;
-            sqlCmd.ExecuteNonQuery();
-            String dobResult = sqlCmd.Parameters["@dob"].Value.ToString();
-            return dobResult;
-        }
-
-        private String getStudentEmail(String user)
-        {
-            SqlCommand sqlCmd = new SqlCommand("sp_GetStudentEmail", sqlCon);
-            sqlCmd.CommandType = CommandType.StoredProcedure;
-            sqlCmd.Parameters.Add("@username", SqlDbType.VarChar).Value = user;
-            sqlCmd.Parameters.Add("@email", SqlDbType.VarChar, 70);
-            sqlCmd.Parameters["@email"].Direction = ParameterDirection.Output;
-            sqlCmd.ExecuteNonQuery();
-            String email = sqlCmd.Parameters["@email"].Value.ToString();
-            return email;
-        }
-
-        private String getStudentStatus(String user)
-        {
-            SqlCommand sqlCmd = new SqlCommand("sp_GetStudentStatus", sqlCon);
-            sqlCmd.CommandType = CommandType.StoredProcedure;
-            sqlCmd.Parameters.Add("@username", SqlDbType.VarChar).Value = user;
-            sqlCmd.Parameters.Add("@status", SqlDbType.VarChar, 70);
-            sqlCmd.Parameters["@status"].Direction = ParameterDirection.Output;
-            sqlCmd.ExecuteNonQuery();
-            String status = sqlCmd.Parameters["@status"].Value.ToString();
-            return status;
-        }
-        private String getAddress(String user)
-        {
-            SqlCommand sqlCmd = new SqlCommand("sp_GetStudentAddress", sqlCon);
-            sqlCmd.CommandType = CommandType.StoredProcedure;
-            sqlCmd.Parameters.Add("@username", SqlDbType.VarChar).Value = user;
-            sqlCmd.Parameters.Add("@address", SqlDbType.VarChar, 70);
-            sqlCmd.Parameters["@address"].Direction = ParameterDirection.Output;
-            sqlCmd.ExecuteNonQuery();
-            String address = sqlCmd.Parameters["@address"].Value.ToString();
-            return address;
-        }
-
-        private String getNumber(String user)
-        {
-            SqlCommand sqlCmd = new SqlCommand("sp_GetStudentNumber", sqlCon);
-            sqlCmd.CommandType = CommandType.StoredProcedure;
-            sqlCmd.Parameters.Add("@username", SqlDbType.VarChar).Value = user;
-            sqlCmd.Parameters.Add("@number", SqlDbType.VarChar, 70);
-            sqlCmd.Parameters["@number"].Direction = ParameterDirection.Output;
-            sqlCmd.ExecuteNonQuery();
-            String studentnumber = sqlCmd.Parameters["@number"].Value.ToString();
-            return studentnumber;
-        }
-
-        private void OnAddressButtonClick(object sender, EventArgs e)
-        {
-            UpdateAddress updateAddress = new UpdateAddress(username);
-            updateAddress.ShowDialog();
-
-        }
-
-        private void OnEditMajorClick(object sender, EventArgs e)
-        {
-            UpdateMajor updateMajor = new UpdateMajor(username);
-            updateMajor.ShowDialog();
-        }
-
-        private void UpdatePhoneClick(object sender, EventArgs e)
-        {
-            UpdatePhoneNumber updatePhone = new UpdatePhoneNumber(username);
-            updatePhone.ShowDialog();
-        }
-
-        private void UpdateMinorClick(object sender, EventArgs e)
-        {
-            UpdateMinor updateMinor = new UpdateMinor(username);
-            updateMinor.ShowDialog();
-        }
+        #region methods for tabPage3 - My Grades
         private void SemesterSelected(object sender, EventArgs e)
         {
              ShowGradesForSelectedSemester();
@@ -489,9 +531,9 @@ namespace StudentPortal
         private void ShowGradesForSelectedSemester() 
         {
             gradeView.Rows.Clear();
-            String semester = dropdownSemesters.Text;
-            String season = semester.Split(" ")[0];
-            String year = semester.Split(" ")[1];
+            string semester = dropdownSemesters.Text;
+            string season = semester.Split(" ")[0];
+            string year = semester.Split(" ")[1];
             
             gradeView.AutoGenerateColumns = true;
 
@@ -529,13 +571,13 @@ namespace StudentPortal
 
         private void OnTranscriptButtonClick(object sender, EventArgs e)
         {
-            String startSem = startSemList.Text;
-            String endSem = endSemList.Text;
+            string startSem = startSemList.Text;
+            string endSem = endSemList.Text;
 
-            String startSeason = startSem.Split(" ")[0];
-            String startYear = startSem.Split(" ")[1];
-            String endSeason = endSem.Split(" ")[0];
-            String endYear = endSem.Split(" ")[1];
+            string startSeason = startSem.Split(" ")[0];
+            string startYear = startSem.Split(" ")[1];
+            string endSeason = endSem.Split(" ")[0];
+            string endYear = endSem.Split(" ")[1];
 
             if (RequestValid(startSeason, startYear, endSeason, endYear))
             {
@@ -561,12 +603,12 @@ namespace StudentPortal
             }
         }
 
-        private Boolean RequestValid(string startSeason, string startYear, string endSeason, string endYear)
+        private static bool RequestValid(string startSeason, string startYear, string endSeason, string endYear)
         {
-            int start = Int32.Parse(startYear);
-            int end = Int32.Parse(endYear);
+            int start = int.Parse(startYear);
+            int end = int.Parse(endYear);
 
-            Boolean result = false;
+            bool result = false;
             if (start <= end)
             {
                 if (start == end)
@@ -604,7 +646,7 @@ namespace StudentPortal
             return dt;
         }
 
-        private Table2 CreateTableWithTranscriptInfo(DataTable info)
+        private static Table2 CreateTableWithTranscriptInfo(DataTable info)
         {
             Table2 table = new(20, 100, 600, 600);
             table.Columns.Add(100);
@@ -645,5 +687,16 @@ namespace StudentPortal
             string monthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(DateTime.Now.Month);
             saveFileDialog.FileName = username + " transcript " + monthName + " " + DateTime.Now.Year.ToString();
         }
+        #endregion
+
+        #region misc methods
+        private void InfoTabLoadSelected(object sender, TabControlEventArgs e)
+        {
+            if (e.TabPageIndex == 0)
+            {
+                PopulateStudentInformation(username);
+            }
+        }
+        #endregion
     }
 }

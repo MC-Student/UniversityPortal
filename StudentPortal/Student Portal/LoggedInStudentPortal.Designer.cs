@@ -1,6 +1,6 @@
 ﻿namespace StudentPortal
 {
-    partial class LoggedInPortal
+    partial class LoggedInStudentPortal
     {
         /// <summary>
         /// Required designer variable.
@@ -30,28 +30,28 @@
         {
             this.studentPortalTabs = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.studentNameInput = new System.Windows.Forms.Label();
+            this.honorsCheck = new System.Windows.Forms.CheckBox();
+            this.honorInput = new System.Windows.Forms.Label();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.addressInput = new System.Windows.Forms.Label();
             this.statusInput = new System.Windows.Forms.Label();
             this.minorInput = new System.Windows.Forms.Label();
             this.numberInput = new System.Windows.Forms.Label();
             this.DOBInput = new System.Windows.Forms.Label();
             this.emailInput = new System.Windows.Forms.Label();
             this.majorInput = new System.Windows.Forms.Label();
-            this.addressInput = new System.Windows.Forms.Label();
-            this.honorInput = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.honorsCheck = new System.Windows.Forms.CheckBox();
+            this.studentNameInput = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.yearList = new System.Windows.Forms.ListBox();
             this.getCoursesButton = new System.Windows.Forms.Button();
@@ -76,6 +76,9 @@
             this.gradeViewLabel = new System.Windows.Forms.Label();
             this.dropdownSemesters = new System.Windows.Forms.ComboBox();
             this.gradeView = new System.Windows.Forms.DataGridView();
+            this.col_SectionName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_SectionCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_SectionGrade = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.studentPortalTabs.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -94,275 +97,281 @@
             this.studentPortalTabs.Controls.Add(this.tabPage1);
             this.studentPortalTabs.Controls.Add(this.tabPage2);
             this.studentPortalTabs.Controls.Add(this.tabPage3);
-            this.studentPortalTabs.Location = new System.Drawing.Point(14, 14);
+            this.studentPortalTabs.Location = new System.Drawing.Point(5, 14);
             this.studentPortalTabs.Margin = new System.Windows.Forms.Padding(5);
             this.studentPortalTabs.Name = "studentPortalTabs";
             this.studentPortalTabs.SelectedIndex = 0;
-            this.studentPortalTabs.Size = new System.Drawing.Size(772, 427);
+            this.studentPortalTabs.Size = new System.Drawing.Size(790, 422);
             this.studentPortalTabs.TabIndex = 0;
             this.studentPortalTabs.Selected += new System.Windows.Forms.TabControlEventHandler(this.InfoTabLoadSelected);
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(honorsCheck);
-            this.tabPage1.Controls.Add(honorInput);
-            this.tabPage1.Controls.Add(button4);
-            this.tabPage1.Controls.Add(button3);
-            this.tabPage1.Controls.Add(button2);
-            this.tabPage1.Controls.Add(button1);
-            this.tabPage1.Controls.Add(addressInput);
-            this.tabPage1.Controls.Add(statusInput);
-            this.tabPage1.Controls.Add(minorInput);
-            this.tabPage1.Controls.Add(numberInput);
-            this.tabPage1.Controls.Add(DOBInput);
-            this.tabPage1.Controls.Add(emailInput);
-            this.tabPage1.Controls.Add(majorInput);
-            this.tabPage1.Controls.Add(studentNameInput);
-            this.tabPage1.Controls.Add(label8);
-            this.tabPage1.Controls.Add(label7);
-            this.tabPage1.Controls.Add(label6);
-            this.tabPage1.Controls.Add(label5);
-            this.tabPage1.Controls.Add(label4);
-            this.tabPage1.Controls.Add(label3);
-            this.tabPage1.Controls.Add(label2);
-            this.tabPage1.Controls.Add(label1);
-            this.tabPage1.Location = new Point(4, 24);
-            this.tabPage1.Margin = new Padding(3, 2, 3, 2);
+            this.tabPage1.Controls.Add(this.honorsCheck);
+            this.tabPage1.Controls.Add(this.honorInput);
+            this.tabPage1.Controls.Add(this.button4);
+            this.tabPage1.Controls.Add(this.button3);
+            this.tabPage1.Controls.Add(this.button2);
+            this.tabPage1.Controls.Add(this.button1);
+            this.tabPage1.Controls.Add(this.addressInput);
+            this.tabPage1.Controls.Add(this.statusInput);
+            this.tabPage1.Controls.Add(this.minorInput);
+            this.tabPage1.Controls.Add(this.numberInput);
+            this.tabPage1.Controls.Add(this.DOBInput);
+            this.tabPage1.Controls.Add(this.emailInput);
+            this.tabPage1.Controls.Add(this.majorInput);
+            this.tabPage1.Controls.Add(this.studentNameInput);
+            this.tabPage1.Controls.Add(this.label8);
+            this.tabPage1.Controls.Add(this.label7);
+            this.tabPage1.Controls.Add(this.label6);
+            this.tabPage1.Controls.Add(this.label5);
+            this.tabPage1.Controls.Add(this.label4);
+            this.tabPage1.Controls.Add(this.label3);
+            this.tabPage1.Controls.Add(this.label2);
+            this.tabPage1.Controls.Add(this.label1);
+            this.tabPage1.Location = new System.Drawing.Point(4, 29);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new Padding(3, 2, 3, 2);
-            this.tabPage1.Size = new Size(680, 292);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabPage1.Size = new System.Drawing.Size(782, 389);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "My Information";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // honorsCheck
             // 
+            this.honorsCheck.AutoCheck = false;
             this.honorsCheck.AutoSize = true;
-            this.honorsCheck.Location = new Point(183, 259);
-            this.honorsCheck.Margin = new Padding(3, 2, 3, 2);
+            this.honorsCheck.Location = new System.Drawing.Point(306, 357);
+            this.honorsCheck.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.honorsCheck.Name = "honorsCheck";
-            this.honorsCheck.Size = new Size(15, 14);
+            this.honorsCheck.Size = new System.Drawing.Size(18, 17);
             this.honorsCheck.TabIndex = 29;
             this.honorsCheck.UseVisualStyleBackColor = true;
             // 
             // honorInput
             // 
             this.honorInput.AutoSize = true;
-            this.honorInput.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            this.honorInput.Location = new Point(21, 253);
+            this.honorInput.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.honorInput.Location = new System.Drawing.Point(112, 347);
             this.honorInput.Name = "honorInput";
-            this.honorInput.Size = new Size(118, 21);
+            this.honorInput.Size = new System.Drawing.Size(149, 28);
             this.honorInput.TabIndex = 28;
             this.honorInput.Text = "Honors Student";
             // 
             // button4
             // 
-            this.button4.Location = new Point(484, 132);
-            this.button4.Margin = new Padding(3, 2, 3, 2);
+            this.button4.Location = new System.Drawing.Point(451, 217);
+            this.button4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button4.Name = "button4";
-            this.button4.Size = new Size(66, 21);
+            this.button4.Size = new System.Drawing.Size(51, 34);
             this.button4.TabIndex = 27;
             this.button4.Text = "Edit";
             this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += UpdatePhoneClick;
+            this.button4.Click += new System.EventHandler(this.OnEditPhoneClick);
             // 
             // button3
             // 
-            this.button3.Location = new Point(484, 193);
-            this.button3.Margin = new Padding(3, 2, 3, 2);
+            this.button3.Location = new System.Drawing.Point(451, 297);
+            this.button3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button3.Name = "button3";
-            this.button3.Size = new Size(66, 23);
+            this.button3.Size = new System.Drawing.Size(51, 34);
             this.button3.TabIndex = 26;
             this.button3.Text = "Edit";
             this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += OnAddressButtonClick;
+            this.button3.Click += new System.EventHandler(this.OnEditAddressClick);
             // 
             // button2
             // 
-            this.button2.Location = new Point(183, 132);
-            this.button2.Margin = new Padding(3, 2, 3, 2);
+            this.button2.Location = new System.Drawing.Point(46, 216);
+            this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button2.Name = "button2";
-            this.button2.Size = new Size(66, 21);
+            this.button2.Size = new System.Drawing.Size(51, 34);
             this.button2.TabIndex = 25;
             this.button2.Text = "Edit";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += UpdateMinorClick;
+            this.button2.Click += new System.EventHandler(this.OnEditMinorClick);
             // 
             // button1
             // 
-            this.button1.Location = new Point(183, 69);
-            this.button1.Margin = new Padding(3, 2, 3, 2);
+            this.button1.Location = new System.Drawing.Point(46, 135);
+            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new Size(66, 20);
+            this.button1.Size = new System.Drawing.Size(51, 34);
             this.button1.TabIndex = 24;
             this.button1.Text = "Edit";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += OnEditMajorClick;
+            this.button1.Click += new System.EventHandler(this.OnEditMajorClick);
             // 
             // addressInput
             // 
             this.addressInput.AutoSize = true;
-            this.addressInput.BackColor = Color.Transparent;
-            this.addressInput.BorderStyle = BorderStyle.FixedSingle;
-            this.addressInput.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            this.addressInput.Location = new Point(322, 217);
+            this.addressInput.BackColor = System.Drawing.Color.Transparent;
+            this.addressInput.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.addressInput.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.addressInput.Location = new System.Drawing.Point(564, 301);
             this.addressInput.Name = "addressInput";
-            this.addressInput.Size = new Size(2, 23);
+            this.addressInput.Size = new System.Drawing.Size(2, 30);
             this.addressInput.TabIndex = 23;
+            this.addressInput.VisibleChanged += new System.EventHandler(this.RefreshAddress);
             // 
             // statusInput
             // 
             this.statusInput.AutoSize = true;
-            this.statusInput.BackColor = Color.Transparent;
-            this.statusInput.BorderStyle = BorderStyle.FixedSingle;
-            this.statusInput.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            this.statusInput.Location = new Point(27, 217);
+            this.statusInput.BackColor = System.Drawing.Color.Transparent;
+            this.statusInput.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.statusInput.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.statusInput.Location = new System.Drawing.Point(150, 301);
             this.statusInput.Name = "statusInput";
-            this.statusInput.Size = new Size(2, 23);
+            this.statusInput.Size = new System.Drawing.Size(2, 30);
             this.statusInput.TabIndex = 22;
             // 
             // minorInput
             // 
             this.minorInput.AutoSize = true;
-            this.minorInput.BackColor = Color.Transparent;
-            this.minorInput.BorderStyle = BorderStyle.FixedSingle;
-            this.minorInput.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            this.minorInput.Location = new Point(27, 157);
+            this.minorInput.BackColor = System.Drawing.Color.Transparent;
+            this.minorInput.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.minorInput.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.minorInput.Location = new System.Drawing.Point(150, 221);
             this.minorInput.Name = "minorInput";
-            this.minorInput.Size = new Size(2, 23);
+            this.minorInput.Size = new System.Drawing.Size(2, 30);
             this.minorInput.TabIndex = 21;
+            this.minorInput.VisibleChanged += new System.EventHandler(this.RefreshMinor);
             // 
             // numberInput
             // 
             this.numberInput.AutoSize = true;
-            this.numberInput.BackColor = Color.Transparent;
-            this.numberInput.BorderStyle = BorderStyle.FixedSingle;
-            this.numberInput.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            this.numberInput.Location = new Point(322, 157);
+            this.numberInput.BackColor = System.Drawing.Color.Transparent;
+            this.numberInput.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.numberInput.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.numberInput.Location = new System.Drawing.Point(564, 221);
             this.numberInput.Name = "numberInput";
-            this.numberInput.Size = new Size(2, 23);
+            this.numberInput.Size = new System.Drawing.Size(2, 30);
             this.numberInput.TabIndex = 20;
+            this.numberInput.VisibleChanged += new System.EventHandler(this.RefreshPhoneNumber);
             // 
             // DOBInput
             // 
             this.DOBInput.AutoSize = true;
-            this.DOBInput.BackColor = Color.Transparent;
-            this.DOBInput.BorderStyle = BorderStyle.FixedSingle;
-            this.DOBInput.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            this.DOBInput.Location = new Point(322, 32);
+            this.DOBInput.BackColor = System.Drawing.Color.Transparent;
+            this.DOBInput.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.DOBInput.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.DOBInput.Location = new System.Drawing.Point(564, 63);
             this.DOBInput.Name = "DOBInput";
-            this.DOBInput.Size = new Size(2, 23);
+            this.DOBInput.Size = new System.Drawing.Size(2, 30);
             this.DOBInput.TabIndex = 19;
             // 
             // emailInput
             // 
             this.emailInput.AutoSize = true;
-            this.emailInput.BackColor = Color.Transparent;
-            this.emailInput.BorderStyle = BorderStyle.FixedSingle;
-            this.emailInput.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            this.emailInput.Location = new Point(322, 100);
+            this.emailInput.BackColor = System.Drawing.Color.Transparent;
+            this.emailInput.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.emailInput.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.emailInput.Location = new System.Drawing.Point(564, 139);
             this.emailInput.Name = "emailInput";
-            this.emailInput.Size = new Size(2, 23);
+            this.emailInput.Size = new System.Drawing.Size(2, 30);
             this.emailInput.TabIndex = 18;
             // 
             // majorInput
             // 
             this.majorInput.AutoSize = true;
-            this.majorInput.BackColor = Color.Transparent;
-            this.majorInput.BorderStyle = BorderStyle.FixedSingle;
-            this.majorInput.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            this.majorInput.Location = new Point(27, 100);
+            this.majorInput.BackColor = System.Drawing.Color.Transparent;
+            this.majorInput.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.majorInput.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.majorInput.Location = new System.Drawing.Point(150, 139);
             this.majorInput.Name = "majorInput";
-            this.majorInput.Size = new Size(2, 23);
+            this.majorInput.Size = new System.Drawing.Size(2, 30);
             this.majorInput.TabIndex = 17;
+            this.majorInput.VisibleChanged += new System.EventHandler(this.RefreshMajor);
             // 
             // studentNameInput
             // 
             this.studentNameInput.AutoSize = true;
-            this.studentNameInput.BackColor = Color.Transparent;
-            this.studentNameInput.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            this.studentNameInput.Location = new Point(29, 17);
+            this.studentNameInput.BackColor = System.Drawing.Color.Transparent;
+            this.studentNameInput.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.studentNameInput.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.studentNameInput.Location = new System.Drawing.Point(150, 63);
             this.studentNameInput.Name = "studentNameInput";
-            this.studentNameInput.Size = new Size(0, 21);
+            this.studentNameInput.Size = new System.Drawing.Size(2, 30);
             this.studentNameInput.TabIndex = 16;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            this.label8.Location = new Point(312, 192);
+            this.label8.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label8.Location = new System.Drawing.Point(521, 264);
             this.label8.Name = "label8";
-            this.label8.Size = new Size(66, 21);
+            this.label8.Size = new System.Drawing.Size(82, 28);
             this.label8.TabIndex = 11;
             this.label8.Text = "Address";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            this.label7.Location = new Point(312, 132);
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label7.Location = new System.Drawing.Point(521, 183);
             this.label7.Name = "label7";
-            this.label7.Size = new Size(116, 21);
+            this.label7.Size = new System.Drawing.Size(144, 28);
             this.label7.TabIndex = 10;
             this.label7.Text = "Phone Number";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            this.label6.Location = new Point(312, 69);
+            this.label6.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label6.Location = new System.Drawing.Point(521, 104);
             this.label6.Name = "label6";
-            this.label6.Size = new Size(99, 21);
+            this.label6.Size = new System.Drawing.Size(124, 28);
             this.label6.TabIndex = 9;
             this.label6.Text = "School Email";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            this.label5.Location = new Point(312, 2);
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label5.Location = new System.Drawing.Point(521, 28);
             this.label5.Name = "label5";
-            this.label5.Size = new Size(68, 21);
+            this.label5.Size = new System.Drawing.Size(85, 28);
             this.label5.TabIndex = 8;
             this.label5.Text = "Birthday";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            this.label4.Location = new Point(20, 191);
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label4.Location = new System.Drawing.Point(112, 264);
             this.label4.Name = "label4";
-            this.label4.Size = new Size(109, 21);
+            this.label4.Size = new System.Drawing.Size(138, 28);
             this.label4.TabIndex = 6;
             this.label4.Text = "Student Status";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            this.label3.Location = new Point(20, 132);
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label3.Location = new System.Drawing.Point(112, 183);
             this.label3.Name = "label3";
-            this.label3.Size = new Size(117, 21);
+            this.label3.Size = new System.Drawing.Size(147, 28);
             this.label3.TabIndex = 4;
             this.label3.Text = "Declared Minor";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            this.label2.Location = new Point(20, 69);
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label2.Location = new System.Drawing.Point(112, 104);
             this.label2.Name = "label2";
-            this.label2.Size = new Size(116, 21);
+            this.label2.Size = new System.Drawing.Size(146, 28);
             this.label2.TabIndex = 2;
             this.label2.Text = "Declared Major";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            this.label1.Location = new Point(21, 2);
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label1.Location = new System.Drawing.Point(112, 28);
             this.label1.Name = "label1";
-            this.label1.Size = new Size(109, 21);
+            this.label1.Size = new System.Drawing.Size(137, 28);
             this.label1.TabIndex = 0;
             this.label1.Text = "Student Name";
             // 
@@ -376,7 +385,7 @@
             this.tabPage2.Margin = new System.Windows.Forms.Padding(5);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(5);
-            this.tabPage2.Size = new System.Drawing.Size(764, 394);
+            this.tabPage2.Size = new System.Drawing.Size(782, 389);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "My Classes";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -514,7 +523,7 @@
             this.tabPage3.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(764, 394);
+            this.tabPage3.Size = new System.Drawing.Size(782, 389);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "My Grades";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -539,8 +548,8 @@
             this.gradesTabSplit.Panel2.Controls.Add(this.gradeViewLabel);
             this.gradesTabSplit.Panel2.Controls.Add(this.dropdownSemesters);
             this.gradesTabSplit.Panel2.Controls.Add(this.gradeView);
-            this.gradesTabSplit.Size = new System.Drawing.Size(758, 388);
-            this.gradesTabSplit.SplitterDistance = 251;
+            this.gradesTabSplit.Size = new System.Drawing.Size(776, 383);
+            this.gradesTabSplit.SplitterDistance = 256;
             this.gradesTabSplit.TabIndex = 5;
             // 
             // transcriptLabel
@@ -642,14 +651,42 @@
             this.gradeView.AllowUserToAddRows = false;
             this.gradeView.AllowUserToDeleteRows = false;
             this.gradeView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gradeView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.col_SectionName,
+            this.col_SectionCode,
+            this.col_SectionGrade});
             this.gradeView.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.gradeView.Location = new System.Drawing.Point(0, 103);
+            this.gradeView.Location = new System.Drawing.Point(0, 98);
             this.gradeView.Name = "gradeView";
             this.gradeView.RowHeadersVisible = false;
             this.gradeView.RowHeadersWidth = 51;
             this.gradeView.RowTemplate.Height = 29;
-            this.gradeView.Size = new System.Drawing.Size(503, 285);
+            this.gradeView.Size = new System.Drawing.Size(516, 285);
             this.gradeView.TabIndex = 1;
+            // 
+            // col_SectionName
+            // 
+            this.col_SectionName.HeaderText = "Section Name";
+            this.col_SectionName.MinimumWidth = 6;
+            this.col_SectionName.Name = "col_SectionName";
+            this.col_SectionName.ReadOnly = true;
+            this.col_SectionName.Width = 145;
+            // 
+            // col_SectionCode
+            // 
+            this.col_SectionCode.HeaderText = "Section Code";
+            this.col_SectionCode.MinimumWidth = 6;
+            this.col_SectionCode.Name = "col_SectionCode";
+            this.col_SectionCode.ReadOnly = true;
+            this.col_SectionCode.Width = 125;
+            // 
+            // col_SectionGrade
+            // 
+            this.col_SectionGrade.HeaderText = "Grade";
+            this.col_SectionGrade.MinimumWidth = 6;
+            this.col_SectionGrade.Name = "col_SectionGrade";
+            this.col_SectionGrade.ReadOnly = true;
+            this.col_SectionGrade.Width = 125;
             // 
             // saveFileDialog
             // 
@@ -666,8 +703,7 @@
             this.Text = "LoggedInPortal";
             this.studentPortalTabs.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            //come back here
-            //this.tabPage1.PerformLayout();
+            this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.coursesView)).EndInit();
             this.tabPage3.ResumeLayout(false);
@@ -679,6 +715,7 @@
             this.gradesTabSplit.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gradeView)).EndInit();
             this.ResumeLayout(false);
+
         }
 
         #endregion
@@ -737,5 +774,8 @@
         private DataGridViewTextBoxColumn end_time;
         private DataGridViewTextBoxColumn pre_reqs;
         private DataGridViewTextBoxColumn coReqs;
+        private DataGridViewTextBoxColumn col_SectionName;
+        private DataGridViewTextBoxColumn col_SectionCode;
+        private DataGridViewTextBoxColumn col_SectionGrade;
     }
 }

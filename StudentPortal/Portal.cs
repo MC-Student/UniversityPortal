@@ -1,27 +1,28 @@
-﻿using Microsoft.VisualBasic.ApplicationServices;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+using System.Configuration;
 using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SqlClient;
+using System.Collections.Generic;
+using static System.Net.Mime.MediaTypeNames;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
+using Microsoft.VisualBasic.ApplicationServices;
+using System.Reflection.Emit;
+using System.Text;
+using System.Security.Cryptography;
 
 namespace StudentPortal
 {
-    public partial class UpdatePhoneNumber : Form
+    public partial class Portal : Form
     {
-        private String Username;
         private SqlConnection sqlCon;
-        public UpdatePhoneNumber(String User)
+        private string user;
+        public Portal()
         {
-            this.Username = User;
             InitializeComponent();
             CreateConnection();
         }
+
         private void CreateConnection()
         {
             try
@@ -39,21 +40,23 @@ namespace StudentPortal
             }
         }
 
-        private void OkButtonClick(object sender, EventArgs e)
+        private void LogInButton_Click(object sender, EventArgs e)
         {
-            String phone = newPhone.Text;
-            UpdateStudentPhone(phone);
-            this.Close();
-
+            using (StudentLoginPage child = new StudentLoginPage())
+            {
+                child.ShowDialog(this);
+            }
         }
 
-        private void UpdateStudentPhone(string phone)
+        public void SetUser(string s)
         {
-            SqlCommand sqlCmd = new SqlCommand("sp_UpdatePhoneNumber", sqlCon);
-            sqlCmd.CommandType = CommandType.StoredProcedure;
-            sqlCmd.Parameters.Add("@username", SqlDbType.VarChar).Value = Username;
-            sqlCmd.Parameters.Add("@phonenumber", SqlDbType.VarChar).Value = phone;
-            sqlCmd.ExecuteNonQuery();
+            user = s;
+            if (!s.Equals("")) 
+            {
+                MessageBox.Show("Welcome, " + user);
+                LoggedInStudentPortal portal = new LoggedInStudentPortal(user);
+                portal.ShowDialog();
+            }
         }
     }
 }

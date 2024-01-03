@@ -15,15 +15,15 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
 
 namespace StudentPortal
 {
-    public partial class LoginPage : Form
+    public partial class StudentLoginPage : Form
     {
         private SqlConnection sqlCon;
-        public LoginPage()
+        public StudentLoginPage()
         {
             InitializeComponent();
         }
 
-        private Boolean CreateConnection()
+        private bool CreateConnection()
         {
             try
             {
@@ -43,7 +43,7 @@ namespace StudentPortal
         }
         private void click_cancel(object sender, EventArgs e)
         {
-            StudentPortal parent = (StudentPortal)this.Owner;
+            Portal parent = (Portal)this.Owner;
             parent.SetUser("");
             this.Close();
         }
@@ -52,8 +52,8 @@ namespace StudentPortal
         {
             if (un_input.Text.Length > 2 && pw_input.Text.Length > 7)
             {
-                String text = un_input.Text;
-                StudentPortal parent = (StudentPortal)this.Owner;
+                string text = un_input.Text;
+                Portal parent = (Portal)this.Owner;
 
                 if (ValidatePassword(text))
                 {
@@ -81,10 +81,10 @@ namespace StudentPortal
             }
         }
 
-        private Boolean ValidatePassword(String user)
+        private bool ValidatePassword(string user)
         {
-            String encryptedInput = encryptInputPassword(pw_input.Text);
-            String actualUserPassword = getStoredPassword(user);
+            string encryptedInput = encryptInputPassword(pw_input.Text);
+            string actualUserPassword = getStoredPassword(user);
             if (actualUserPassword != null && encryptedInput != null)
             {
                 if (actualUserPassword.Equals(encryptedInput))
@@ -103,7 +103,7 @@ namespace StudentPortal
             return false;
         }
 
-        private String encryptInputPassword(String password) 
+        private string encryptInputPassword(string password) 
         {
             if (CreateConnection())
             {
@@ -111,13 +111,13 @@ namespace StudentPortal
                 sqlCmd.CommandType = CommandType.Text;
                 sqlCmd.Parameters.Add("@Pw_chars", SqlDbType.VarChar).Value = password;
                 SqlParameter code1 = new SqlParameter("@code", SqlDbType.Int);
-                String encrypted = sqlCmd.ExecuteScalar() as string;
+                string encrypted = sqlCmd.ExecuteScalar() as string;
                 return encrypted;
             }
           
             return null;
         }
-        private String getStoredPassword(String user)
+        private string getStoredPassword(string user)
         {
             SqlCommand sqlCmd = new SqlCommand("sp_GetEncryptedUserPw", sqlCon);
             sqlCmd.CommandType = CommandType.StoredProcedure;
@@ -125,7 +125,7 @@ namespace StudentPortal
             sqlCmd.Parameters.Add("@password", SqlDbType.VarChar, int.MaxValue);
             sqlCmd.Parameters["@password"].Direction = ParameterDirection.Output;
             sqlCmd.ExecuteNonQuery();
-            String password = sqlCmd.Parameters["@password"].Value.ToString();
+            string password = sqlCmd.Parameters["@password"].Value.ToString();
             return password;
         }
     }

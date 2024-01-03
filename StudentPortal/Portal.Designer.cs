@@ -1,6 +1,6 @@
 ﻿namespace StudentPortal
 {
-    partial class StudentPortal
+    partial class Portal
     {
         /// <summary>
         ///  Required designer variable.
@@ -36,30 +36,31 @@
             // 
             this.LogInButton.Location = new System.Drawing.Point(338, 177);
             this.LogInButton.Name = "LogInButton";
-            this.LogInButton.Size = new System.Drawing.Size(94, 29);
+            this.LogInButton.Size = new System.Drawing.Size(120, 29);
             this.LogInButton.TabIndex = 1;
-            this.LogInButton.Text = "Log In";
+            this.LogInButton.Text = "Student Log In";
             this.LogInButton.UseVisualStyleBackColor = true;
             this.LogInButton.Click += new System.EventHandler(this.LogInButton_Click);
             // 
             // portal_title
             // 
             this.portal_title.AutoSize = true;
-            this.portal_title.Location = new System.Drawing.Point(305, 127);
+            this.portal_title.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.portal_title.Location = new System.Drawing.Point(323, 132);
             this.portal_title.Name = "portal_title";
-            this.portal_title.Size = new System.Drawing.Size(170, 20);
+            this.portal_title.Size = new System.Drawing.Size(154, 25);
             this.portal_title.TabIndex = 2;
-            this.portal_title.Text = "University Student Portal";
+            this.portal_title.Text = "University Portal";
             // 
-            // StudentPortal
+            // Portal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.portal_title);
             this.Controls.Add(this.LogInButton);
-            this.Name = "StudentPortal";
-            this.Text = "Form1";
+            this.Name = "Portal";
+            this.Text = "University Portal";
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -14,9 +14,9 @@ namespace StudentPortal
 {
     public partial class UpdateAddress : Form
     {
-        private String Username;
+        private string Username;
         private SqlConnection sqlCon;
-        public UpdateAddress(String User)
+        public UpdateAddress(string User)
         {
             this.Username = User;
             InitializeComponent();
@@ -41,12 +41,12 @@ namespace StudentPortal
 
         private void OKClick(object sender, EventArgs e)
         {
-            String address = newAddress.Text;
+            string address = newAddress.Text;
             UpdateStudentAddress(address);
             this.Close();
         }
 
-        private void UpdateStudentAddress(String updated)
+        private void UpdateStudentAddress(string updated)
         {
             SqlCommand sqlCmd = new SqlCommand("sp_UpdateAddress", sqlCon);
             sqlCmd.CommandType = CommandType.StoredProcedure;

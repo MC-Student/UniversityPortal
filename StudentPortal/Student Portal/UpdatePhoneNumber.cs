@@ -12,18 +12,17 @@ using System.Windows.Forms;
 
 namespace StudentPortal
 {
-    public partial class UpdateMinor : Form
+    public partial class UpdatePhoneNumber : Form
     {
-        private String Username;
+        private string Username;
         private SqlConnection sqlCon;
-        public UpdateMinor(String user)
+        public UpdatePhoneNumber(string User)
         {
-            this.Username = user;
+            this.Username = User;
             InitializeComponent();
             CreateConnection();
         }
         private void CreateConnection()
-
         {
             try
             {
@@ -40,40 +39,21 @@ namespace StudentPortal
             }
         }
 
-
-        private void OKButtonClicked(object sender, EventArgs e)
+        private void OkButtonClick(object sender, EventArgs e)
         {
-            String minor = comboBoxMinors.Text;
-            UpdateStudentMinor(minor);
+            string phone = newPhone.Text;
+            UpdateStudentPhone(phone);
             this.Close();
+
         }
 
-        private void UpdateStudentMinor(string minor)
+        private void UpdateStudentPhone(string phone)
         {
-            SqlCommand sqlCmd = new SqlCommand("sp_UpdateMinor", sqlCon);
+            SqlCommand sqlCmd = new SqlCommand("sp_UpdatePhoneNumber", sqlCon);
             sqlCmd.CommandType = CommandType.StoredProcedure;
             sqlCmd.Parameters.Add("@username", SqlDbType.VarChar).Value = Username;
-            sqlCmd.Parameters.Add("@minor", SqlDbType.VarChar).Value = minor;
+            sqlCmd.Parameters.Add("@phonenumber", SqlDbType.VarChar).Value = phone;
             sqlCmd.ExecuteNonQuery();
-        }
-
-        private void UpdateMinorLoad(object sender, EventArgs e)
-        {
-            DisplayMinors();
-        }
-        private void DisplayMinors()
-        {
-            SqlCommand sqlCmd = new SqlCommand("spGetMinorList", sqlCon);
-            sqlCmd.CommandType = CommandType.StoredProcedure;
-            sqlCmd.ExecuteNonQuery();
-            DataTable List = new DataTable();
-            SqlDataAdapter da = new SqlDataAdapter(sqlCmd);
-            da.Fill(List);
-
-            foreach (DataRow Row in List.Rows)
-            {
-                comboBoxMinors.Items.Add(Row.ItemArray.GetValue(0).ToString());
-            }
         }
     }
 }

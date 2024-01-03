@@ -1,6 +1,6 @@
 ﻿namespace StudentPortal
 {
-    partial class LoginPage
+    partial class StudentLoginPage
     {
         /// <summary>
         /// Required designer variable.
@@ -89,7 +89,7 @@
             this.cancel_button.UseVisualStyleBackColor = true;
             this.cancel_button.Click += new System.EventHandler(this.click_cancel);
             // 
-            // LoginPage
+            // StudentLoginPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -100,8 +100,8 @@
             this.Controls.Add(this.un_input);
             this.Controls.Add(this.pw_label);
             this.Controls.Add(this.un_label);
-            this.Name = "LoginPage";
-            this.Text = "LoginPage";
+            this.Name = "StudentLoginPage";
+            this.Text = "Student Log In";
             this.ResumeLayout(false);
             this.PerformLayout();
 
