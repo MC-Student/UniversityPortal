@@ -669,7 +669,6 @@
             this.col_SectionName.HeaderText = "Section Name";
             this.col_SectionName.MinimumWidth = 6;
             this.col_SectionName.Name = "col_SectionName";
-            this.col_SectionName.ReadOnly = true;
             this.col_SectionName.Width = 145;
             // 
             // col_SectionCode
@@ -677,7 +676,6 @@
             this.col_SectionCode.HeaderText = "Section Code";
             this.col_SectionCode.MinimumWidth = 6;
             this.col_SectionCode.Name = "col_SectionCode";
-            this.col_SectionCode.ReadOnly = true;
             this.col_SectionCode.Width = 125;
             // 
             // col_SectionGrade
@@ -685,22 +683,21 @@
             this.col_SectionGrade.HeaderText = "Grade";
             this.col_SectionGrade.MinimumWidth = 6;
             this.col_SectionGrade.Name = "col_SectionGrade";
-            this.col_SectionGrade.ReadOnly = true;
             this.col_SectionGrade.Width = 125;
             // 
             // saveFileDialog
             // 
             this.saveFileDialog.Title = "Save transcript as...";
             // 
-            // LoggedInPortal
+            // LoggedInStudentPortal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.studentPortalTabs);
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "LoggedInPortal";
-            this.Text = "LoggedInPortal";
+            this.Name = "LoggedInStudentPortal";
+            this.Text = "My Student Portal";
             this.studentPortalTabs.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();

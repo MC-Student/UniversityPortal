@@ -1,25 +1,22 @@
-﻿using System;
+﻿using StudentPortal;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Data.SqlTypes;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Net.Mime.MediaTypeNames;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
 
-namespace StudentPortal
+namespace UniversityPortal.Instructor_Portal
 {
-    public partial class StudentLoginPage : Form
+    public partial class InstructorLoginPage : Form
     {
         private SqlConnection sqlCon;
-        private readonly int STUDENT_LOGIN_TYPE = 1;
-        public StudentLoginPage()
+        private readonly int INST_LOGIN_TYPE = 2;
+        public InstructorLoginPage()
         {
             InitializeComponent();
         }
@@ -42,23 +39,17 @@ namespace StudentPortal
             }
             return false;
         }
-        private void Click_cancel(object sender, EventArgs e)
-        {
-            Portal parent = (Portal)this.Owner;
-            parent.SetUser("", 0);
-            this.Close();
-        }
 
         private void Click_ok(object sender, EventArgs e)
         {
             if (un_input.Text.Length > 2 && pw_input.Text.Length > 7)
             {
-                string text = un_input.Text;
+                string un = un_input.Text;
                 Portal parent = (Portal)this.Owner;
 
-                if (ValidatePassword(text))
+                if (ValidatePassword(un))
                 {
-                    parent.SetUser(text, STUDENT_LOGIN_TYPE);
+                    parent.SetUser(un, INST_LOGIN_TYPE);
                     this.Close();
                 }
                 else
@@ -68,7 +59,7 @@ namespace StudentPortal
                     pw_input.Clear();
                 }
             }
-            else if (un_input.Text.Length < 3 && pw_input.Text.Length < 8) 
+            else if (un_input.Text.Length < 3 && pw_input.Text.Length < 8)
             {
                 MessageBox.Show("Invalid username and password: fix input length");
             }
@@ -82,10 +73,17 @@ namespace StudentPortal
             }
         }
 
-        private bool ValidatePassword(string user)
+        private void Click_cancel(object sender, EventArgs e)
+        {
+            Portal parent = (Portal)this.Owner;
+            parent.SetUser("", 0);
+            this.Close();
+        }
+
+        private bool ValidatePassword(string instructor)
         {
             string encryptedInput = EncryptInputPassword(pw_input.Text);
-            string actualUserPassword = GetStoredPassword(user);
+            string actualUserPassword = GetStoredPassword(instructor);
             if (actualUserPassword != null && encryptedInput != null)
             {
                 if (actualUserPassword.Equals(encryptedInput))
@@ -93,7 +91,7 @@ namespace StudentPortal
                     return true;
                 }
             }
-            else if (encryptedInput == null) 
+            else if (encryptedInput == null)
             {
                 MessageBox.Show("Database connection failed");
             }
@@ -104,7 +102,7 @@ namespace StudentPortal
             return false;
         }
 
-        private string EncryptInputPassword(string password) 
+        private string EncryptInputPassword(string password)
         {
             if (CreateConnection())
             {
@@ -116,16 +114,17 @@ namespace StudentPortal
                 string encrypted = sqlCmd.ExecuteScalar() as string;
                 return encrypted;
             }
-          
+
             return null;
         }
-        private string GetStoredPassword(string user)
+
+        private string GetStoredPassword(string instructor)
         {
-            SqlCommand sqlCmd = new("sp_GetEncryptedUserPw", sqlCon)
+            SqlCommand sqlCmd = new("sp_GetEncryptedInstPw", sqlCon)
             {
                 CommandType = CommandType.StoredProcedure
             };
-            sqlCmd.Parameters.Add("@username", SqlDbType.VarChar).Value = user;
+            sqlCmd.Parameters.Add("@username", SqlDbType.VarChar).Value = instructor;
             sqlCmd.Parameters.Add("@password", SqlDbType.VarChar, int.MaxValue);
             sqlCmd.Parameters["@password"].Direction = ParameterDirection.Output;
             sqlCmd.ExecuteNonQuery();
