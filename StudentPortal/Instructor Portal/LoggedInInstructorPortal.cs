@@ -102,7 +102,7 @@ namespace UniversityPortal.Instructor_Portal
 
         }
 
-        #region methods for tabPage3 - My Grades
+        #region methods for tabPage2 - All Sections
         private void SemesterSelected(object sender, EventArgs e)
         {
             ShowSectionsForSelectedSemester();
@@ -268,5 +268,52 @@ namespace UniversityPortal.Instructor_Portal
         }*/
         #endregion
 
+        #region methods for tabPage3 - Students
+        private void SemesterOfStudentsSelected(object sender, EventArgs e)
+        {
+            ShowStudentsForSelectedSemester();
+        }
+
+        private void ShowStudentsForSelectedSemester()
+        {
+            studentInstView.Rows.Clear();
+            string semester = dropdownSemesters.Text;
+            string season = semester.Split(" ")[0];
+            string year = semester.Split(" ")[1];
+
+            studentInstView.AutoGenerateColumns = true;
+
+            DataTable dt = new DataTable();
+            SqlCommand myCmd = new SqlCommand("SP_InstructorStudentInfo", sqlCon);
+            myCmd.CommandType = CommandType.StoredProcedure;
+            myCmd.Parameters.Add("@InstructorUsername", SqlDbType.VarChar).Value = username;
+            myCmd.Parameters.Add("@Season", SqlDbType.VarChar).Value = season;
+            myCmd.Parameters.Add("@Year", SqlDbType.VarChar).Value = year;
+
+            SqlDataAdapter adapter = new SqlDataAdapter(myCmd);
+            adapter.Fill(dt);
+
+            ArrayList list = new ArrayList();
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                foreach (DataColumn column in dt.Columns)
+                {
+                    list.Add(dt.Rows[i][column].ToString());
+                }
+
+                studentInstView.Rows.Add(list[0], list[1], list[2], list[3], list[4], list[5], list[6]);
+                list.Clear();
+            }
+
+            for (int i = 0; i <= studentInstView.Columns.Count - 1; i++)
+            {
+                studentInstView.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                studentInstView.Columns[i].Width = allSectionsView.Columns[i].Width;
+            }
+
+            studentInstView.Visible = true;
+        }
+        #endregion
     }
 }

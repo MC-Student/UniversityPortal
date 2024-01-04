@@ -42,11 +42,22 @@
             this.coreq_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.reg_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.semesterDropdown = new System.Windows.Forms.ComboBox();
+            this.studentInstView = new System.Windows.Forms.DataGridView();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.instPortalTabs.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.allSectionsView)).BeginInit();
+            this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.studentInstView)).BeginInit();
             this.SuspendLayout();
             // 
             // instPortalTabs
@@ -190,12 +201,53 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.semesterDropdown);
+            this.tabPage3.Controls.Add(this.studentInstView);
             this.tabPage3.Location = new System.Drawing.Point(4, 29);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Size = new System.Drawing.Size(782, 389);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Students";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // semesterDropdown
+            // 
+            this.semesterDropdown.FormattingEnabled = true;
+            this.semesterDropdown.Items.AddRange(new object[] {
+            "Fall 2021",
+            "Spring 2021",
+            "Fall 2020",
+            "Spring 2020"});
+            this.semesterDropdown.Location = new System.Drawing.Point(614, 23);
+            this.semesterDropdown.MaxDropDownItems = 4;
+            this.semesterDropdown.Name = "semesterDropdown";
+            this.semesterDropdown.Size = new System.Drawing.Size(151, 28);
+            this.semesterDropdown.TabIndex = 2;
+            this.semesterDropdown.Text = "choose semester";
+            this.semesterDropdown.SelectedValueChanged += new System.EventHandler(this.SemesterOfStudentsSelected);
+            // 
+            // studentInstView
+            // 
+            this.studentInstView.AllowUserToAddRows = false;
+            this.studentInstView.AllowUserToDeleteRows = false;
+            this.studentInstView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.studentInstView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2,
+            this.dataGridViewTextBoxColumn3,
+            this.dataGridViewTextBoxColumn4,
+            this.dataGridViewTextBoxColumn5,
+            this.dataGridViewTextBoxColumn6,
+            this.dataGridViewTextBoxColumn7});
+            this.studentInstView.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.studentInstView.Location = new System.Drawing.Point(0, 67);
+            this.studentInstView.Name = "studentInstView";
+            this.studentInstView.ReadOnly = true;
+            this.studentInstView.RowHeadersVisible = false;
+            this.studentInstView.RowHeadersWidth = 51;
+            this.studentInstView.RowTemplate.Height = 29;
+            this.studentInstView.Size = new System.Drawing.Size(782, 322);
+            this.studentInstView.TabIndex = 1;
             // 
             // tabPage4
             // 
@@ -215,6 +267,63 @@
             this.tabPage5.Text = "Instruction History";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "Name";
+            this.dataGridViewTextBoxColumn1.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.Width = 125;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.HeaderText = "Major";
+            this.dataGridViewTextBoxColumn2.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.Width = 125;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.HeaderText = "Minor";
+            this.dataGridViewTextBoxColumn3.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            this.dataGridViewTextBoxColumn3.Width = 125;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.HeaderText = "Honors";
+            this.dataGridViewTextBoxColumn4.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            this.dataGridViewTextBoxColumn4.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewTextBoxColumn4.Width = 125;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.HeaderText = "Year Status";
+            this.dataGridViewTextBoxColumn5.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.ReadOnly = true;
+            this.dataGridViewTextBoxColumn5.Width = 125;
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            this.dataGridViewTextBoxColumn6.HeaderText = "Section Title";
+            this.dataGridViewTextBoxColumn6.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            this.dataGridViewTextBoxColumn6.ReadOnly = true;
+            this.dataGridViewTextBoxColumn6.Width = 125;
+            // 
+            // dataGridViewTextBoxColumn7
+            // 
+            this.dataGridViewTextBoxColumn7.HeaderText = "Grade";
+            this.dataGridViewTextBoxColumn7.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            this.dataGridViewTextBoxColumn7.ReadOnly = true;
+            this.dataGridViewTextBoxColumn7.Width = 125;
+            // 
             // LoggedInInstructorPortal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -226,6 +335,8 @@
             this.instPortalTabs.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.allSectionsView)).EndInit();
+            this.tabPage3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.studentInstView)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -248,5 +359,14 @@
         private DataGridViewTextBoxColumn prereq_col;
         private DataGridViewTextBoxColumn coreq_col;
         private DataGridViewTextBoxColumn reg_col;
+        private DataGridView studentInstView;
+        private ComboBox semesterDropdown;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
     }
 }
